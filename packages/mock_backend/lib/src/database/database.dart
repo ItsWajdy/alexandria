@@ -4,28 +4,27 @@ import 'package:mock_backend/src/seed_data/books_data.dart';
 
 export 'models/models.dart';
 
+abstract class DatabaseException implements Exception {
+  const DatabaseException(this.message);
+
+  /// The associated error message.
+  final String message;
+}
+
 /// Exception thrown when Hive hasn't been initialized before calling it.
-class HiveNotInitializedException implements Exception {
-  @override
-  String toString() {
-    return 'Hive was not correctly initialized';
-  }
+class HiveNotInitializedException extends DatabaseException {
+  const HiveNotInitializedException()
+      : super('Hive was not correctly initialized');
 }
 
 /// Exception thrown when trying to add an existing book into the database.
-class BookAlreadyExistsException implements Exception {
-  @override
-  String toString() {
-    return 'Book Already Exists';
-  }
+class BookAlreadyExistsException extends DatabaseException {
+  const BookAlreadyExistsException() : super('Book Already Exists');
 }
 
 /// Exception thrown when trying to read a book that doesn't exist in database.
-class BookNotInDatabaseException implements Exception {
-  @override
-  String toString() {
-    return 'Book Not In Database';
-  }
+class BookNotInDatabaseException extends DatabaseException {
+  const BookNotInDatabaseException() : super('Book Not In Database');
 }
 
 class Database {

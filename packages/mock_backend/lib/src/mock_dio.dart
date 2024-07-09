@@ -4,10 +4,12 @@ import 'package:mocktail/mocktail.dart';
 
 /// Exception thrown when the Dio request is not as expected.
 class BadRequestException implements Exception {
-  @override
-  String toString() {
-    return 'Bad Request Error';
-  }
+  const BadRequestException([
+    this.message = 'Bad Request Error',
+  ]);
+
+  /// The associated error message.
+  final String message;
 }
 
 /*
@@ -53,12 +55,23 @@ class MockDio extends Mock implements Dio {
         },
         statusCode: 200,
       );
-    } catch (e) {
-      int statusCode = e is BadRequestException ? 400 : 500;
+    } on BadRequestException catch (e) {
       return Response(
         requestOptions: RequestOptions(),
-        data: {'success': false, 'message': e.toString()},
-        statusCode: statusCode,
+        data: {'success': false, 'message': e.message},
+        statusCode: 400,
+      );
+    } on DatabaseException catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': e.message},
+        statusCode: 500,
+      );
+    } catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': 'Unknown Error Occurred'},
+        statusCode: 500,
       );
     }
   }
@@ -86,12 +99,23 @@ class MockDio extends Mock implements Dio {
         },
         statusCode: 200,
       );
-    } catch (e) {
-      int statusCode = e is BadRequestException ? 400 : 500;
+    } on BadRequestException catch (e) {
       return Response(
         requestOptions: RequestOptions(),
-        data: {'success': false, 'message': e.toString()},
-        statusCode: statusCode,
+        data: {'success': false, 'message': e.message},
+        statusCode: 400,
+      );
+    } on DatabaseException catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': e.message},
+        statusCode: 500,
+      );
+    } catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': 'Unknown Error Occurred'},
+        statusCode: 500,
       );
     }
   }
@@ -119,12 +143,23 @@ class MockDio extends Mock implements Dio {
         },
         statusCode: 200,
       );
-    } catch (e) {
-      int statusCode = e is BadRequestException ? 400 : 500;
+    } on BadRequestException catch (e) {
       return Response(
         requestOptions: RequestOptions(),
-        data: {'success': false, 'message': e.toString()},
-        statusCode: statusCode,
+        data: {'success': false, 'message': e.message},
+        statusCode: 400,
+      );
+    } on DatabaseException catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': e.message},
+        statusCode: 500,
+      );
+    } catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': 'Unknown Error Occurred'},
+        statusCode: 500,
       );
     }
   }
@@ -149,12 +184,23 @@ class MockDio extends Mock implements Dio {
         },
         statusCode: 200,
       );
-    } catch (e) {
-      int statusCode = e is BadRequestException ? 400 : 500;
+    } on BadRequestException catch (e) {
       return Response(
         requestOptions: RequestOptions(),
-        data: {'success': false, 'message': e.toString()},
-        statusCode: statusCode,
+        data: {'success': false, 'message': e.message},
+        statusCode: 400,
+      );
+    } on DatabaseException catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': e.message},
+        statusCode: 500,
+      );
+    } catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': 'Unknown Error Occurred'},
+        statusCode: 500,
       );
     }
   }
