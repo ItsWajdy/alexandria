@@ -13,6 +13,9 @@ dependencies:
 
   cupertino_icons: ^1.0.6
   dio: ^5.5.0+1
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+  google_fonts: ^6.2.1
   mock_backend:
     path: packages/mock_backend
 
