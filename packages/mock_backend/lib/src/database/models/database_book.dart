@@ -44,7 +44,7 @@ class DatabaseBook extends HiveObject {
       'title': title,
       'author': author,
       'description': description,
-      'publication_date': publicationDate,
+      'publication_date': publicationDate.toString(),
     };
   }
 }
