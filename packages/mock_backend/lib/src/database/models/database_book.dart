@@ -20,12 +20,16 @@ class DatabaseBook extends HiveObject {
   @HiveField(4)
   DateTime publicationDate;
 
+  @HiveField(5)
+  String image;
+
   DatabaseBook({
     required this.id,
     required this.title,
-    required this.description,
     required this.author,
+    required this.description,
     required this.publicationDate,
+    required this.image,
   });
 
   factory DatabaseBook.fromJson(Map<String, dynamic> json) {
@@ -35,7 +39,16 @@ class DatabaseBook extends HiveObject {
       author: json['author'],
       description: json['description'],
       publicationDate: DateTime.parse(json['publication_date']),
+      image: json['book_image'],
     );
+  }
+
+  void copyFrom(DatabaseBook other) {
+    title = other.title;
+    author = other.author;
+    description = other.description;
+    publicationDate = other.publicationDate;
+    image = other.image;
   }
 
   Map<String, dynamic> toJson() {
@@ -45,6 +58,7 @@ class DatabaseBook extends HiveObject {
       'author': author,
       'description': description,
       'publication_date': publicationDate.toString(),
+      'image': image,
     };
   }
 }

@@ -22,13 +22,14 @@ class DatabaseBookAdapter extends TypeAdapter<DatabaseBook> {
       description: fields[3] as String,
       author: fields[2] as String,
       publicationDate: fields[4] as DateTime,
+      image: fields[5] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, DatabaseBook obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class DatabaseBookAdapter extends TypeAdapter<DatabaseBook> {
       ..writeByte(3)
       ..write(obj.description)
       ..writeByte(4)
-      ..write(obj.publicationDate);
+      ..write(obj.publicationDate)
+      ..writeByte(5)
+      ..write(obj.image);
   }
 
   @override

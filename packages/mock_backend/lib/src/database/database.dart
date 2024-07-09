@@ -143,11 +143,7 @@ class Database {
     }
 
     DatabaseBook existingBook = get(book.id);
-
-    existingBook.title = book.title;
-    existingBook.author = book.author;
-    existingBook.description = book.description;
-    existingBook.publicationDate = book.publicationDate;
+    existingBook.copyFrom(book);
 
     existingBook.save();
   }

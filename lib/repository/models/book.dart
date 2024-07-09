@@ -6,6 +6,7 @@ class Book extends Equatable {
   final String author;
   final String description;
   final DateTime publicationDate;
+  final String image;
 
   const Book({
     required this.id,
@@ -13,6 +14,7 @@ class Book extends Equatable {
     required this.author,
     required this.description,
     required this.publicationDate,
+    required this.image,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class Book extends Equatable {
       author: json['author'],
       description: json['description'],
       publicationDate: DateTime.parse(json['publication_date']),
+      image: json['image'],
     );
   }
 
@@ -31,6 +34,7 @@ class Book extends Equatable {
     author: '',
     description: '',
     publicationDate: DateTime.fromMillisecondsSinceEpoch(0),
+    image: '',
   );
 
   bool get isEmpty => this == Book.empty;
@@ -43,5 +47,6 @@ class Book extends Equatable {
         author,
         description,
         publicationDate,
+        image,
       ];
 }
