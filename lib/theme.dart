@@ -17,11 +17,11 @@ class AlexandriaTheme {
       titleTextStyle: TextStyle(
         fontFamily: 'Roboto',
         fontSize: 25,
-        color: Colors.white,
+        color: Colors.black,
       ),
-      iconTheme: IconThemeData(color: Colors.white),
-      backgroundColor: _blue,
-      elevation: 4,
+      iconTheme: IconThemeData(color: Colors.black),
+      backgroundColor: Colors.transparent,
+      elevation: 0,
     ),
     colorScheme: const ColorScheme.light(
       primary: _blue,
