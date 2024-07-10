@@ -100,7 +100,7 @@ class EditBookCubit extends Cubit<EditBookState> {
     );
   }
 
-  Future<void> saveNewBook() async {
+  Future<void> editBook() async {
     if (!state.isValid || state.publicationDate == null) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {

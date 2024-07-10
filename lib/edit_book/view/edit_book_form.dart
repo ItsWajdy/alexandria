@@ -252,7 +252,7 @@ class _SubmitButton extends StatelessWidget {
     return FloatingCircularButton(
       key: const Key('newBookForm_submitButton'),
       size: 54,
-      onClicked: () => context.read<EditBookCubit>().saveNewBook(),
+      onClicked: () => context.read<EditBookCubit>().editBook(),
       child: Icon(
         Icons.save,
         color: AlexandriaTheme.highlightColor,
