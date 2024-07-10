@@ -12,6 +12,7 @@ class BooksRepository {
   static const _bookDetailsEndpoint = '/books/details';
   static const _newBookEndpoint = '/books/add';
   static const _editBookEndpoint = '/books';
+  static const _deleteBookEndpoint = '/books';
 
   Future<List<Book>> fetchAllBooks() async {
     ApiResponse response = await _booksApiService.request(
@@ -84,6 +85,21 @@ class BooksRepository {
         'description': description,
         'cover_image_path': image,
         'publication_date': publicationDate,
+      },
+    );
+
+    if (response.status == ResponseStatus.error) {
+      // TODO create exception
+      throw Exception();
+    }
+  }
+
+  Future<void> deleteBook({required int id}) async {
+    ApiResponse response = await _booksApiService.request(
+      requestType: RequestType.delete,
+      endpoint: _deleteBookEndpoint,
+      body: {
+        'id': id,
       },
     );
 
