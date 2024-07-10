@@ -50,6 +50,7 @@ class _AllBooksViewState extends State<AllBooksView> {
                 child: CircularProgressIndicator(),
               );
             } else if (state.status.isFailure) {
+              // TODO error handling
               return const Center(
                 child: Text('failed'),
               );

@@ -26,6 +26,10 @@ class MockDio extends Mock implements Dio {
           '/books',
           queryParameters: any(named: 'queryParameters'),
         )).thenAnswer(_onBooksRequested);
+    when(() => get(
+          '/books/details',
+          queryParameters: any(named: 'queryParameters'),
+        )).thenAnswer(_onBookDetailsRequested);
     when(() => post(
           '/books/add',
           data: captureAny(named: 'data'),
@@ -52,6 +56,49 @@ class MockDio extends Mock implements Dio {
         data: {
           'success': true,
           'result': allBooks.map((e) => e.toJson()),
+        },
+        statusCode: 200,
+      );
+    } on BadRequestException catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': e.message},
+        statusCode: 400,
+      );
+    } on DatabaseException catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': e.message},
+        statusCode: 500,
+      );
+    } catch (e) {
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {'success': false, 'message': 'Unknown Error Occurred'},
+        statusCode: 500,
+      );
+    }
+  }
+
+  /// Mock request to return one book details
+  Future<Response<dynamic>> _onBookDetailsRequested(
+      Invocation invocation) async {
+    try {
+      Map<String, dynamic> queryParams =
+          invocation.namedArguments[Symbol('queryParameters')];
+
+      // Validate request
+      if (!queryParams.containsKey('id')) {
+        throw BadRequestException();
+      }
+
+      DatabaseBook bookDetails = Database.get(queryParams['id']);
+
+      return Response(
+        requestOptions: RequestOptions(),
+        data: {
+          'success': true,
+          'result': bookDetails.toJson(),
         },
         statusCode: 200,
       );

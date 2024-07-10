@@ -5,7 +5,7 @@ class Book extends Equatable {
   final String title;
   final String author;
   final String description;
-  final DateTime publicationDate;
+  final DateTime? publicationDate;
   final String image;
 
   const Book({
@@ -28,12 +28,12 @@ class Book extends Equatable {
     );
   }
 
-  static final empty = Book(
+  static const empty = Book(
     id: -1,
     title: '',
     author: '',
     description: '',
-    publicationDate: DateTime.fromMillisecondsSinceEpoch(0),
+    publicationDate: null,
     image: '',
   );
 

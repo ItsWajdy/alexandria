@@ -1,5 +1,6 @@
 import 'package:alexandria/repository/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BookPreview extends StatelessWidget {
   final Book book;
@@ -13,8 +14,7 @@ class BookPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).push<void>(MaterialPageRoute(
-        //     builder: (context) => BookDetailsPage(book: book)));
+        context.go('/book/${book.id}');
       },
       child: Center(
         child: Column(
