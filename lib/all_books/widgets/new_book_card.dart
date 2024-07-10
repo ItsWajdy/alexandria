@@ -15,7 +15,9 @@ class NewBookCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              // TODO extract these values to theme
               height: 260,
+              width: 172,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(11),

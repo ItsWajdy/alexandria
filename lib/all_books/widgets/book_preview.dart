@@ -14,14 +14,16 @@ class BookPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go('/books/${book.id}');
+        context.go('/book', extra: book);
       },
       child: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              // TODO extract this value to theme
               height: 260,
+              width: 172,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(11),
