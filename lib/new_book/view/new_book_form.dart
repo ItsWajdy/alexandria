@@ -111,7 +111,6 @@ class _TitleInput extends StatelessWidget {
               context.read<NewBookCubit>().titleChanged(email),
           decoration: InputDecoration(
             labelText: 'Title',
-            helperText: '',
             errorText:
                 state.title.displayError != null ? 'Invalid Title' : null,
           ),
@@ -133,7 +132,6 @@ class _AuthorInput extends StatelessWidget {
               context.read<NewBookCubit>().authorChanged(email),
           decoration: InputDecoration(
             labelText: 'Author',
-            helperText: '',
             errorText:
                 state.author.displayError != null ? 'Invalid Author' : null,
           ),
@@ -157,7 +155,6 @@ class _DescriptionInput extends StatelessWidget {
           maxLines: 3,
           decoration: InputDecoration(
             labelText: 'Description',
-            helperText: '',
             errorText: state.description.displayError != null
                 ? 'Invalid Description'
                 : null,
@@ -180,7 +177,6 @@ class _ImageInput extends StatelessWidget {
               context.read<NewBookCubit>().imageChanged(email),
           decoration: InputDecoration(
             labelText: 'Image',
-            helperText: '',
             errorText: state.image.displayError != null ? 'Invalid Path' : null,
           ),
         );
