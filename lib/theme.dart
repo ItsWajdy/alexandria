@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AlexandriaTheme {
-  static const Color _blue = Color(0xFF39AABF);
-  static const Color _green = Color(0xFF55C0A4);
+  static const Color _background = Color(0xFFF4F4F4);
+  static const Color _highlight = Color(0xFFB0902A);
+  static const Color _lightGrey = Color(0xFFD6D6D6);
+  static const Color _darkGrey = Color(0xFF616161);
 
   static final _theme = ThemeData(
     textTheme: GoogleFonts.robotoTextTheme(),
     appBarTheme: const AppBarTheme(
-      shape: ContinuousRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(18),
-          bottomRight: Radius.circular(18),
-        ),
-      ),
       titleTextStyle: TextStyle(
         fontFamily: 'Roboto',
         fontSize: 25,
@@ -23,42 +19,36 @@ class AlexandriaTheme {
       backgroundColor: Colors.transparent,
       elevation: 0,
     ),
-    colorScheme: const ColorScheme.light(
-      primary: _blue,
-      secondary: _green,
-      background: Colors.white,
-    ),
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: Colors.white,
+      fillColor: _background,
       filled: true,
       enabledBorder: OutlineInputBorder(
         borderSide: const BorderSide(
-          color: _green,
+          color: _darkGrey,
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(12),
       ),
       focusedBorder: OutlineInputBorder(
         borderSide: const BorderSide(
-          color: _green,
+          color: _highlight,
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(12),
       ),
       border: OutlineInputBorder(
         borderSide: const BorderSide(
-          color: _green,
+          color: _darkGrey,
           width: 2,
         ),
-        borderRadius: BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(12),
       ),
     ),
-    canvasColor: Colors.white,
+    canvasColor: _background,
   );
 
-  static get blue => _blue;
-  static get primaryColor => _blue;
-  static get green => _green;
-  static get secondaryColor => _green;
+  static get backgroundColor => _background;
+  static get highlightColor => _highlight;
+  static get lightGrey => _lightGrey;
   static get data => _theme;
 }

@@ -10,6 +10,7 @@ class BooksRepository {
   final BooksApiService _booksApiService;
   static const _allBooksEndpoint = '/books';
   static const _bookDetailsEndpoint = '/books/details';
+  static const _newBookEndpoint = '/books/add';
 
   Future<List<Book>> fetchAllBooks() async {
     ApiResponse response = await _booksApiService.request(
@@ -24,7 +25,7 @@ class BooksRepository {
         response.data['result'].map((jsonBook) => Book.fromJson(jsonBook)));
   }
 
-  Future<Book> fetchBookDetails(int id) async {
+  Future<Book> fetchBookDetails({required int id}) async {
     ApiResponse response = await _booksApiService.request(
       requestType: RequestType.get,
       endpoint: _bookDetailsEndpoint,
@@ -37,5 +38,30 @@ class BooksRepository {
     }
 
     return Book.fromJson(response.data['result']);
+  }
+
+  Future<void> addNewBook({
+    required String title,
+    required String author,
+    required String description,
+    required String image,
+    required String publicationDate,
+  }) async {
+    ApiResponse response = await _booksApiService.request(
+      requestType: RequestType.post,
+      endpoint: _newBookEndpoint,
+      body: {
+        'title': title,
+        'author': author,
+        'description': description,
+        'cover_image_path': image,
+        'publication_date': publicationDate,
+      },
+    );
+
+    if (response.status == ResponseStatus.error) {
+      // TODO create exception
+      throw Exception();
+    }
   }
 }

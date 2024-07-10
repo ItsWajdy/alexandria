@@ -14,7 +14,7 @@ class BookPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go('/book/${book.id}');
+        context.go('/books/${book.id}');
       },
       child: Center(
         child: Column(

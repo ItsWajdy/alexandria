@@ -1,5 +1,5 @@
 import 'package:alexandria/all_books/all_books.dart';
-import 'package:alexandria/all_books/widgets/book_preview.dart';
+import 'package:alexandria/all_books/widgets/widgets.dart';
 import 'package:alexandria/books_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,12 +36,15 @@ class _AllBooksViewState extends State<AllBooksView> {
             if (state.status.isSuccess) {
               return GridView.builder(
                 shrinkWrap: true,
-                itemCount: state.allBooks.length,
+                itemCount: state.allBooks.length + 1,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2, mainAxisExtent: 340),
                 itemBuilder: (_, index) {
+                  if (index == 0) {
+                    return const NewBookCard();
+                  }
                   return BookPreview(
-                    book: state.allBooks[index],
+                    book: state.allBooks[index - 1],
                   );
                 },
               );

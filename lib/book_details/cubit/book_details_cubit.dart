@@ -14,7 +14,7 @@ class BookDetailsCubit extends Cubit<BookDetailsState> {
     emit(state.copyWith(status: BookDetailsStatus.loading));
 
     try {
-      final Book bookDetails = await _booksRepository.fetchBookDetails(id);
+      final Book bookDetails = await _booksRepository.fetchBookDetails(id: id);
 
       emit(
         state.copyWith(

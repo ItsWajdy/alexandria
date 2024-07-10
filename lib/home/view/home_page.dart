@@ -32,35 +32,33 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.favorite),
-              label: 'Favorites',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: const Color(0xFFAB871A),
-          backgroundColor: Colors.white,
-          selectedLabelStyle:
-              const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
-          unselectedLabelStyle:
-              const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
-          onTap: _onItemTapped,
-        ),
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
-        ),
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favorites',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xFFAB871A),
+        backgroundColor: Colors.white,
+        selectedLabelStyle:
+            const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+        unselectedLabelStyle:
+            const TextStyle(fontWeight: FontWeight.bold, fontSize: 11),
+        onTap: _onItemTapped,
+      ),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
     );
   }
