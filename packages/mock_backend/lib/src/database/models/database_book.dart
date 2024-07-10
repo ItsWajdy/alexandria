@@ -39,7 +39,7 @@ class DatabaseBook extends HiveObject {
       author: json['author'],
       description: json['description'],
       publicationDate: DateTime.parse(json['publication_date']),
-      image: json['book_image'],
+      image: json['cover_image_path'],
     );
   }
 

@@ -147,8 +147,11 @@ class BookDetailsPage extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: GestureDetector(
-                  onTap: () {},
+                // TODO change all GestureDetectors to InkWell
+                child: InkWell(
+                  onTap: () {
+                    context.go('/edit', extra: state.bookDetails);
+                  },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
