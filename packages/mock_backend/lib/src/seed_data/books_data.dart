@@ -4,7 +4,7 @@ class BooksData {
       "id": 0,
       "description":
           "The physician-scientist and immunologist chronicles his six decades of public service, including his work during the AIDS crisis and the Covid-19 pandemic.",
-      "title": "ON CALL",
+      "title": "On Call",
       "author": "Anthony S. Fauci",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9780593657478.jpg",
@@ -14,7 +14,7 @@ class BooksData {
       "id": 1,
       "description":
           "A co-author of “The Coddling of the American Mind” looks at the mental health impacts that a phone-based life has on children.",
-      "title": "THE ANXIOUS GENERATION",
+      "title": "The Anxious Generation",
       "author": "Jonathan Haidt",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9780593655030.jpg",
@@ -24,7 +24,7 @@ class BooksData {
       "id": 2,
       "description":
           "The author of “The Splendid and the Vile” portrays the months between the election of Abraham Lincoln and the beginning of the Civil War.",
-      "title": "THE DEMON OF UNREST",
+      "title": "The Demon Of Unrest",
       "author": "Erik Larson",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9780385348744.jpg",
@@ -34,7 +34,7 @@ class BooksData {
       "id": 3,
       "description":
           "A look at the potentially positive and negative aspects of biotechnology, nanotechnology and artificial intelligence.",
-      "title": "THE SINGULARITY IS NEARER",
+      "title": "The Singularity Is Nearer",
       "author": "Ray Kurzweil",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9780399562761.jpg",
@@ -44,7 +44,7 @@ class BooksData {
       "id": 4,
       "description":
           "The host of “Real Time With Bill Maher” gives his take on a variety of subjects in American culture and politics.",
-      "title": "WHAT THIS COMEDIAN SAID WILL SHOCK YOU",
+      "title": "What This Comedian Said Will Shock You",
       "author": "Bill Maher",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9781668051351.jpg",
@@ -54,7 +54,7 @@ class BooksData {
       "id": 5,
       "description":
           "A trove of items collected by the Pulitzer Prize-winning historian’s late husband inspired an appraisal of central figures and pivotal moments of the 1960s.",
-      "title": "AN UNFINISHED LOVE STORY",
+      "title": "An Unfinished Love Story",
       "author": "Doris Kearns Goodwin",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9781982108663.jpg",
@@ -64,7 +64,7 @@ class BooksData {
       "id": 6,
       "description":
           "A portrayal of the bond between Jack Daniel and the African American distiller Nearest Green.",
-      "title": "LOVE & WHISKEY",
+      "title": "Love & Whiskey",
       "author": "Fawn Weaver",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9781595911346.jpg",
@@ -74,7 +74,7 @@ class BooksData {
       "id": 7,
       "description":
           "The \"Fox & Friends Weekend\" host shares his experiences serving in the Army and his views on the current state of the American military.",
-      "title": "THE WAR ON WARRIORS",
+      "title": "The War On Warriors",
       "author": "Pete Hegseth",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9780063389427.jpg",
@@ -84,7 +84,7 @@ class BooksData {
       "id": 8,
       "description":
           "The survivors of a shipwrecked British vessel on a secret mission during an imperial war with Spain have different accounts of events.",
-      "title": "THE WAGER",
+      "title": "The Wager",
       "author": "David Grann",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9780385534260.jpg",
@@ -94,7 +94,7 @@ class BooksData {
       "id": 9,
       "description":
           "A look at recent scientific research on aging and longevity.",
-      "title": "OUTLIVE",
+      "title": "Outlive",
       "author": "Peter Attia with Bill Gifford",
       "book_image":
           "https://storage.googleapis.com/du-prd/books/images/9780593236598.jpg",
