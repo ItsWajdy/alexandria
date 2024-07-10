@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:mock_backend/src/database/database.dart';
 import 'package:mocktail/mocktail.dart';
@@ -126,18 +128,25 @@ class MockDio extends Mock implements Dio {
   /// Mock request to add book to database request
   Future<Response<dynamic>> _onAddBookRequested(Invocation invocation) async {
     try {
-      Map<String, dynamic> data = invocation.namedArguments[Symbol('data')];
+      Map<String, dynamic> data =
+          jsonDecode(invocation.namedArguments[Symbol('data')]);
 
       // Validate request
-      if (!data.containsKey('id') ||
-          !data.containsKey('title') ||
+      if (!data.containsKey('title') ||
           !data.containsKey('author') ||
           !data.containsKey('description') ||
+          !data.containsKey('cover_image_path') ||
           !data.containsKey('publication_date')) {
         throw BadRequestException();
       }
 
-      await Database.add(DatabaseBook.fromJson(data));
+      await Database.add(
+        data['title'],
+        data['author'],
+        data['description'],
+        data['cover_image_path'],
+        DateTime.parse(data['publication_date']),
+      );
 
       return Response(
         requestOptions: RequestOptions(),

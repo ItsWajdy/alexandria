@@ -32,8 +32,13 @@ class Database {
   Database._internal();
 
   static bool _hiveInitialized = false;
-  static const String _boxName = 'books_database';
-  static late final Box _box;
+
+  static const String _booksBoxName = 'books_database';
+  static const String _lastBookIdBoxName = 'last_book_id_database';
+  static const String _lastBookIdKey = 'last_book_id';
+
+  static late final Box _booksBox;
+  static late final Box _lastBookIdBox;
 
   /// Initialize Hive and populate the database with initial data if database is empty
   static Future<void> init() async {
@@ -41,10 +46,14 @@ class Database {
     await Hive.initFlutter();
     Hive.registerAdapter(DatabaseBookAdapter());
 
-    // Open the books box and if empty populate the database with seed data
-    _box = await Hive.openBox(_boxName);
-    if (_box.isEmpty) {
+    // Open the books box and the last index box
+    _booksBox = await Hive.openBox(_booksBoxName);
+    _lastBookIdBox = await Hive.openBox(_lastBookIdBoxName);
+
+    // If books box is empty populate the database with seed data
+    if (_booksBox.isEmpty) {
       await _populateFromSeedData();
+      await _lastBookIdBox.put(_lastBookIdKey, _booksBox.length);
     }
 
     // Finished initialization
@@ -54,7 +63,7 @@ class Database {
   static Future<void> _populateFromSeedData() async {
     List<DatabaseBook> json =
         BooksData.data.map((e) => DatabaseBook.fromJson(e)).toList();
-    await _box.addAll(json);
+    await _booksBox.addAll(json);
   }
 
   /// Get DatabaseBook from database by its ID and throw error on failure
@@ -63,7 +72,7 @@ class Database {
       throw HiveNotInitializedException();
     }
 
-    DatabaseBook? book = _box.values.where((e) => e.id == id).firstOrNull;
+    DatabaseBook? book = _booksBox.values.where((e) => e.id == id).firstOrNull;
 
     if (book == null) {
       throw BookNotInDatabaseException();
@@ -78,7 +87,7 @@ class Database {
       throw HiveNotInitializedException();
     }
 
-    DatabaseBook? book = _box.values.where((e) => e.id == id).firstOrNull;
+    DatabaseBook? book = _booksBox.values.where((e) => e.id == id).firstOrNull;
 
     if (book == null) {
       return null;
@@ -93,7 +102,7 @@ class Database {
       throw HiveNotInitializedException();
     }
 
-    return List<DatabaseBook>.from(_box.values);
+    return List<DatabaseBook>.from(_booksBox.values);
   }
 
   /// Does database contain DatabaseBook with ID
@@ -108,15 +117,31 @@ class Database {
   }
 
   /// Add DatabaseBook to database
-  static Future<void> add(DatabaseBook book) async {
+  static Future<void> add(
+    String title,
+    String author,
+    String description,
+    String coverImagePath,
+    DateTime publicationDate,
+  ) async {
     if (!_hiveInitialized) {
       throw HiveNotInitializedException();
     }
-    if (contains(book)) {
-      throw BookAlreadyExistsException();
-    }
 
-    await _box.add(book);
+    DatabaseBook book = DatabaseBook(
+      id: _lastBookIdBox.get(_lastBookIdKey),
+      title: title,
+      author: author,
+      description: description,
+      publicationDate: publicationDate,
+      image: coverImagePath,
+    );
+
+    await _booksBox.add(book);
+
+    // Increment last book ID by one
+    int lastStoredBookId = await _lastBookIdBox.get(_lastBookIdKey);
+    await _lastBookIdBox.put(_lastBookIdKey, lastStoredBookId + 1);
   }
 
   /// Add list of DatabaseBooks to database
@@ -130,7 +155,11 @@ class Database {
       }
     }
 
-    await _box.addAll(books);
+    await _booksBox.addAll(books);
+
+    // Increment last book ID by number of added books
+    int lastStoredBookId = await _lastBookIdBox.get(_lastBookIdKey);
+    await _lastBookIdBox.put(_lastBookIdKey, lastStoredBookId + books.length);
   }
 
   /// Update DatabaseBook in database
