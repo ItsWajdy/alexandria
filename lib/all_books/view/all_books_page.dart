@@ -29,6 +29,16 @@ class _AllBooksViewState extends State<AllBooksView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF2F2F2),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Alexandria',
+          style: Theme.of(context)
+              .textTheme
+              .titleLarge!
+              .copyWith(fontWeight: FontWeight.bold, fontSize: 25),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: BlocBuilder<AllBooksCubit, AllBooksState>(

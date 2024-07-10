@@ -17,6 +17,7 @@ class AlexandriaTheme {
       ),
       iconTheme: IconThemeData(color: Colors.black),
       backgroundColor: Colors.transparent,
+      surfaceTintColor: Colors.transparent,
       elevation: 0,
     ),
     inputDecorationTheme: InputDecorationTheme(

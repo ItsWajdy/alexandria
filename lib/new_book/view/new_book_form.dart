@@ -34,7 +34,9 @@ class _NewBookFormState extends State<NewBookForm> {
             Icons.arrow_back_ios_new,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            context.go('/');
+          },
         ),
       ),
       floatingActionButton: _SubmitButton(),

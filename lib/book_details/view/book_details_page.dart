@@ -76,6 +76,7 @@ class BookDetailsView extends StatelessWidget {
                     Expanded(
                       flex: 6,
                       child: Container(
+                        width: double.infinity,
                         color: const Color(0xFFF4F4F4),
                         child: Padding(
                           padding: const EdgeInsets.only(
