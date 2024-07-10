@@ -226,7 +226,8 @@ class MockDio extends Mock implements Dio {
   Future<Response<dynamic>> _onDeleteBookRequested(
       Invocation invocation) async {
     try {
-      Map<String, dynamic> data = invocation.namedArguments[Symbol('data')];
+      Map<String, dynamic> data =
+          jsonDecode(invocation.namedArguments[Symbol('data')]);
 
       // Validate request
       if (!data.containsKey('id')) {
