@@ -150,7 +150,7 @@ class BookDetailsPage extends StatelessWidget {
                 // TODO change all GestureDetectors to InkWell
                 child: InkWell(
                   onTap: () {
-                    context.go('/edit', extra: state.bookDetails);
+                    context.go('/edit', extra: book);
                   },
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

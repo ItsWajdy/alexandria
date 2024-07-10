@@ -43,6 +43,11 @@ class _NewBookFormState extends State<NewBookForm> {
       body: BlocConsumer<NewBookCubit, NewBookState>(
         listener: (context, state) {
           if (state.status.isSuccess) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Success'),
+              ),
+            );
             context.go('/');
           }
           if (state.status.isFailure) {
