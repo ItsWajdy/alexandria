@@ -164,21 +164,27 @@ class BookDetailsView extends StatelessWidget {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const Icon(
-                            Icons.edit,
-                            color: Color(0xFFC5AB63),
-                          ),
-                          Text(
-                            'EDIT',
-                            style: theme.textTheme.bodyMedium!.copyWith(
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 14),
-                          ),
-                        ],
+                      // TODO change all GestureDetectors to InkWell
+                      child: InkWell(
+                        onTap: () {
+                          context.go('/edit', extra: state.bookDetails);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const Icon(
+                              Icons.edit,
+                              color: Color(0xFFC5AB63),
+                            ),
+                            Text(
+                              'EDIT',
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 14),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     const VerticalDivider(
