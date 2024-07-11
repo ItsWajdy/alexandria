@@ -2,9 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 
-final class EditBookState extends Equatable {
-  const EditBookState({
-    required this.bookId,
+final class AbstractState extends Equatable {
+  const AbstractState({
+    this.bookId,
     this.title = const Text.pure(),
     this.author = const Text.pure(),
     this.description = const Text.pure(),
@@ -15,7 +15,7 @@ final class EditBookState extends Equatable {
     this.errorMessage,
   });
 
-  final int bookId;
+  final int? bookId;
   final Text title;
   final Text author;
   final Text description;
@@ -25,7 +25,7 @@ final class EditBookState extends Equatable {
   final bool isValid;
   final String? errorMessage;
 
-  EditBookState copyWith({
+  AbstractState copyWith({
     Text? title,
     Text? author,
     Text? description,
@@ -35,8 +35,8 @@ final class EditBookState extends Equatable {
     bool? isValid,
     String? errorMessage,
   }) {
-    return EditBookState(
-      bookId: this.bookId,
+    return AbstractState(
+      bookId: bookId,
       title: title ?? this.title,
       author: author ?? this.author,
       description: description ?? this.description,

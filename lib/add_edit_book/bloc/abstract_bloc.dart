@@ -1,33 +1,24 @@
+import 'package:alexandria/add_edit_book/bloc/abstract_event.dart';
+import 'package:alexandria/add_edit_book/bloc/abstract_state.dart';
 import 'package:alexandria/books_repository.dart';
-import 'package:alexandria/edit_book/cubit/edit_book_event.dart';
-import 'package:alexandria/edit_book/cubit/edit_book_state.dart';
-import 'package:alexandria/repository/models/book.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 
-class EditBookBloc extends Bloc<EditBookEvent, EditBookState> {
-  final BooksRepository _booksRepository;
-  final Book book;
+abstract class AbstractBloc extends Bloc<AbstractEvent, AbstractState> {
+  final BooksRepository booksRepository;
+  final AbstractState initialState;
 
-  EditBookBloc(this._booksRepository, this.book)
-      : super(EditBookState(
-          bookId: book.id,
-          title: Text.dirty(book.title),
-          author: Text.dirty(book.author),
-          description: Text.dirty(book.description),
-          image: Url.dirty(book.image),
-          publicationDate: book.publicationDate,
-        )) {
+  AbstractBloc(this.booksRepository, this.initialState) : super(initialState) {
     on<TitleChanged>(_onTitleChanged);
     on<AuthorChanged>(_onAuthorChanged);
     on<DescriptionChanged>(_onDescriptionChanged);
     on<ImageChanged>(_onImageChanged);
     on<PublicationDateChanged>(_onPublicationDateChanged);
-    on<FormSubmitted>(_onFormSubmitted);
+    on<FormSubmitted>(onFormSubmitted);
   }
 
-  void _onTitleChanged(TitleChanged event, Emitter<EditBookState> emit) {
+  void _onTitleChanged(TitleChanged event, Emitter<AbstractState> emit) {
     final Text title = Text.dirty(event.text);
     emit(
       state.copyWith(
@@ -43,7 +34,7 @@ class EditBookBloc extends Bloc<EditBookEvent, EditBookState> {
     );
   }
 
-  void _onAuthorChanged(AuthorChanged event, Emitter<EditBookState> emit) {
+  void _onAuthorChanged(AuthorChanged event, Emitter<AbstractState> emit) {
     final Text author = Text.dirty(event.text);
     emit(
       state.copyWith(
@@ -60,7 +51,7 @@ class EditBookBloc extends Bloc<EditBookEvent, EditBookState> {
   }
 
   void _onDescriptionChanged(
-      DescriptionChanged event, Emitter<EditBookState> emit) {
+      DescriptionChanged event, Emitter<AbstractState> emit) {
     final Text description = Text.dirty(event.text);
     emit(
       state.copyWith(
@@ -76,7 +67,7 @@ class EditBookBloc extends Bloc<EditBookEvent, EditBookState> {
     );
   }
 
-  void _onImageChanged(ImageChanged event, Emitter<EditBookState> emit) {
+  void _onImageChanged(ImageChanged event, Emitter<AbstractState> emit) {
     final Url image = Url.dirty(event.text);
     emit(
       state.copyWith(
@@ -93,7 +84,7 @@ class EditBookBloc extends Bloc<EditBookEvent, EditBookState> {
   }
 
   void _onPublicationDateChanged(
-      PublicationDateChanged event, Emitter<EditBookState> emit) {
+      PublicationDateChanged event, Emitter<AbstractState> emit) {
     emit(
       state.copyWith(
           publicationDate: event.date,
@@ -106,28 +97,27 @@ class EditBookBloc extends Bloc<EditBookEvent, EditBookState> {
     );
   }
 
-  Future<void> _onFormSubmitted(
-      FormSubmitted event, Emitter<EditBookState> emit) async {
-    if (!state.isValid || state.publicationDate == null) return;
-    emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-    try {
-      await _booksRepository.editBook(
-        id: state.bookId,
-        title: state.title.value,
-        author: state.author.value,
-        description: state.description.value,
-        image: state.image.value,
-        publicationDate: state.publicationDate!.toIso8601String(),
-      );
-
-      emit(state.copyWith(status: FormzSubmissionStatus.success));
-    } catch (e) {
-      emit(
-        state.copyWith(
-          status: FormzSubmissionStatus.failure,
-          errorMessage: 'Error Occurred',
-        ),
-      );
-    }
-  }
+  Future<void> onFormSubmitted(
+      FormSubmitted event, Emitter<AbstractState> emit);
+  // if (!state.isValid || state.publicationDate == null) return;
+  // emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
+  // try {
+  //   await _booksRepository.editBook(
+  //     id: state.bookId,
+  //     title: state.title.value,
+  //     author: state.author.value,
+  //     description: state.description.value,
+  //     image: state.image.value,
+  //     publicationDate: state.publicationDate!.toIso8601String(),
+  //   );
+  //
+  //   emit(state.copyWith(status: FormzSubmissionStatus.success));
+  // } catch (e) {
+  //   emit(
+  //     state.copyWith(
+  //       status: FormzSubmissionStatus.failure,
+  //       errorMessage: 'Error Occurred',
+  //     ),
+  //   );
+  // }
 }

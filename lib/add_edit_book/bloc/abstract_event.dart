@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-sealed class EditBookEvent extends Equatable {
-  const EditBookEvent();
+sealed class AbstractEvent extends Equatable {
+  const AbstractEvent();
 }
 
-final class TitleChanged extends EditBookEvent {
+final class TitleChanged extends AbstractEvent {
   final String text;
 
   const TitleChanged({required this.text});
@@ -13,7 +13,7 @@ final class TitleChanged extends EditBookEvent {
   List<Object?> get props => [text];
 }
 
-final class AuthorChanged extends EditBookEvent {
+final class AuthorChanged extends AbstractEvent {
   final String text;
 
   const AuthorChanged({required this.text});
@@ -22,7 +22,7 @@ final class AuthorChanged extends EditBookEvent {
   List<Object?> get props => [text];
 }
 
-final class DescriptionChanged extends EditBookEvent {
+final class DescriptionChanged extends AbstractEvent {
   final String text;
 
   const DescriptionChanged({required this.text});
@@ -31,7 +31,7 @@ final class DescriptionChanged extends EditBookEvent {
   List<Object?> get props => [text];
 }
 
-final class ImageChanged extends EditBookEvent {
+final class ImageChanged extends AbstractEvent {
   final String text;
 
   const ImageChanged({required this.text});
@@ -40,7 +40,7 @@ final class ImageChanged extends EditBookEvent {
   List<Object?> get props => [text];
 }
 
-final class PublicationDateChanged extends EditBookEvent {
+final class PublicationDateChanged extends AbstractEvent {
   final DateTime date;
 
   const PublicationDateChanged({required this.date});
@@ -49,7 +49,7 @@ final class PublicationDateChanged extends EditBookEvent {
   List<Object?> get props => [date];
 }
 
-final class FormSubmitted extends EditBookEvent {
+final class FormSubmitted extends AbstractEvent {
   @override
   List<Object?> get props => [];
 }
