@@ -2,6 +2,7 @@ import 'package:alexandria/book_details/cubit/delete_book_cubit.dart';
 import 'package:alexandria/book_details/widgets/book_preview.dart';
 import 'package:alexandria/book_details/widgets/floating_card.dart';
 import 'package:alexandria/books_repository.dart';
+import 'package:alexandria/favorites/cubit/favorites_cubit.dart';
 import 'package:alexandria/repository/models/book.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,15 +26,23 @@ class BookDetailsPage extends StatelessWidget {
   }
 }
 
-class BookDetailsView extends StatelessWidget {
+class BookDetailsView extends StatefulWidget {
   final Book book;
 
   const BookDetailsView({super.key, required this.book});
 
   @override
+  State<BookDetailsView> createState() => _BookDetailsViewState();
+}
+
+class _BookDetailsViewState extends State<BookDetailsView> {
+  @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     ThemeData theme = Theme.of(context);
+
+    bool isFavorite =
+        context.read<FavoritesCubit>().isBookInFavorites(widget.book.id);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -49,8 +58,14 @@ class BookDetailsView extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.favorite),
-            onPressed: () {},
+            icon: Icon(isFavorite ? Icons.favorite : Icons.favorite_border),
+            onPressed: () {
+              setState(() {
+                context
+                    .read<FavoritesCubit>()
+                    .flipFavoriteStatus(widget.book.id);
+              });
+            },
           ),
         ],
       ),
@@ -83,7 +98,7 @@ class BookDetailsView extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(top: 50.0),
                       child: BookPreview(
-                        book: book,
+                        book: widget.book,
                       ),
                     ),
                   ),
@@ -114,7 +129,7 @@ class BookDetailsView extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            book.description,
+                            widget.book.description,
                             style: theme.textTheme.bodyLarge,
                             textAlign: TextAlign.center,
                           ),
@@ -137,7 +152,8 @@ class BookDetailsView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text(
-                        DateFormat.yMMMMd().format(book.publicationDate!),
+                        DateFormat.yMMMMd()
+                            .format(widget.book.publicationDate!),
                         style: theme.textTheme.bodyMedium!.copyWith(
                             color: const Color(0xFFC5AB63),
                             fontWeight: FontWeight.bold,
@@ -187,7 +203,7 @@ class BookDetailsView extends StatelessWidget {
                   // TODO change all GestureDetectors to InkWell
                   child: InkWell(
                     onTap: () {
-                      context.go('/edit', extra: book);
+                      context.go('/edit', extra: widget.book);
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

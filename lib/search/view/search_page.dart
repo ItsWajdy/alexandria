@@ -1,8 +1,8 @@
 import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/all_books/widgets/book_preview.dart';
-import 'package:alexandria/search/cubit/search_bloc.dart';
-import 'package:alexandria/search/cubit/search_event.dart';
-import 'package:alexandria/search/cubit/search_state.dart';
+import 'package:alexandria/search/bloc/search_bloc.dart';
+import 'package:alexandria/search/bloc/search_event.dart';
+import 'package:alexandria/search/bloc/search_state.dart';
 import 'package:alexandria/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

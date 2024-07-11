@@ -1,6 +1,6 @@
 import 'package:alexandria/repository/models/book.dart';
-import 'package:alexandria/search/cubit/search_event.dart';
-import 'package:alexandria/search/cubit/search_state.dart';
+import 'package:alexandria/search/bloc/search_event.dart';
+import 'package:alexandria/search/bloc/search_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {

@@ -1,4 +1,5 @@
 import 'package:alexandria/all_books/all_books.dart';
+import 'package:alexandria/favorites/favorites.dart';
 import 'package:alexandria/search/view/search_page.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +17,7 @@ class _HomePageState extends State<HomePage> {
   static const List<Widget> _widgetOptions = <Widget>[
     AllBooksPage(),
     SearchPage(),
-    Text(
-      'Index 1: School',
-      style: optionStyle,
-    ),
+    FavoritesPage(),
   ];
 
   void _onItemTapped(int index) {
