@@ -11,12 +11,10 @@ extension DeleteBookStatusX on DeleteBookStatus {
 
 final class DeleteBookState extends Equatable {
   const DeleteBookState({
-    required this.bookId,
     this.status = DeleteBookStatus.initial,
     this.errorMessage,
   });
 
-  final int bookId;
   final DeleteBookStatus status;
   final String? errorMessage;
 
@@ -25,7 +23,6 @@ final class DeleteBookState extends Equatable {
     String? errorMessage,
   }) {
     return DeleteBookState(
-      bookId: bookId,
       status: status ?? this.status,
       errorMessage: errorMessage ?? this.errorMessage,
     );
@@ -33,7 +30,6 @@ final class DeleteBookState extends Equatable {
 
   @override
   List<Object?> get props => [
-        bookId,
         status,
         errorMessage,
       ];

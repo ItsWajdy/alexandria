@@ -1,7 +1,8 @@
 import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/all_books/widgets/book_preview.dart';
-import 'package:alexandria/favorites/cubit/favorites_cubit.dart';
-import 'package:alexandria/favorites/cubit/favorites_state.dart';
+import 'package:alexandria/favorites/favorites.dart';
+import 'package:alexandria/favorites/favorites_cubit/favorites_state.dart';
+import 'package:alexandria/favorites/repository/favorites_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,18 +11,19 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AllBooksCubit, AllBooksState>(
-      builder: (context, state) {
-        if (state.status.isSuccess) {
-          context.read<FavoritesCubit>().getFavoritesFrom(state.allBooks);
-          return const FavoritesView();
-        } else {
-          // TODO error handling
-          return const Center(
-            child: Text('error'),
-          );
-        }
-      },
+    return BlocProvider(
+      create: (context) => FavoritesCubit(context.read<FavoritesRepository>()),
+      child: BlocBuilder<AllBooksCubit, AllBooksState>(
+        builder: (context, state) {
+          if (state.status.isSuccess) {
+            context.read<FavoritesCubit>().getFavoritesFrom(state.allBooks);
+            return const FavoritesView();
+          } else if (state.status.isFailure) {
+            return Center(child: Text(state.errorMessage ?? 'Unknown error'));
+          }
+          return const Center(child: Text('Fatal error'));
+        },
+      ),
     );
   }
 }
@@ -49,6 +51,8 @@ class FavoritesView extends StatelessWidget {
                 );
               },
             );
+          } else if (state.status.isFailure) {
+            return Center(child: Text(state.errorMessage ?? 'Unknown error'));
           }
           return const SizedBox();
         },

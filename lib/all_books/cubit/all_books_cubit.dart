@@ -1,4 +1,4 @@
-import 'package:alexandria/books_repository.dart';
+import 'package:alexandria/repository/books_repository.dart';
 import 'package:alexandria/repository/models/models.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,8 +22,20 @@ class AllBooksCubit extends Cubit<AllBooksState> {
           allBooks: allBooks,
         ),
       );
+    } on ApiServiceException catch (e) {
+      emit(
+        state.copyWith(
+          status: AllBooksStatus.failure,
+          errorMessage: e.message,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(status: AllBooksStatus.failure));
+      emit(
+        state.copyWith(
+          status: AllBooksStatus.failure,
+          errorMessage: 'Unknown error.',
+        ),
+      );
     }
   }
 }

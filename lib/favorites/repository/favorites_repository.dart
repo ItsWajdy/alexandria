@@ -9,6 +9,22 @@ class HiveNotInitializedException implements Exception {
   final String message;
 }
 
+/// Exception thrown when trying to add a book which is already in favorites.
+class BookAlreadyInFavorites implements Exception {
+  const BookAlreadyInFavorites({this.message = 'Book already in favorites'});
+
+  /// The associated error message.
+  final String message;
+}
+
+/// Exception thrown when trying to delete a book not in favorites.
+class BookNotInFavorites implements Exception {
+  const BookNotInFavorites({this.message = 'Book not found in favorites'});
+
+  /// The associated error message.
+  final String message;
+}
+
 class FavoritesRepository {
   static const String _boxName = 'favorite_books_ids';
   static late final Box _box;
@@ -28,12 +44,21 @@ class FavoritesRepository {
       throw const HiveNotInitializedException();
     }
 
+    if (isBookInFavorites(id)) {
+      throw const BookAlreadyInFavorites();
+    }
+
     await _box.add(id);
   }
 
+  // Remove a book ID from Hive
   Future<void> removeIdFromFavorites(int id) async {
     if (!_hiveInitialized) {
       throw const HiveNotInitializedException();
+    }
+
+    if (!isBookInFavorites(id)) {
+      throw const BookNotInFavorites();
     }
 
     for (int i = 0; i < _box.length; i++) {
@@ -50,5 +75,9 @@ class FavoritesRepository {
     }
 
     return List<int>.from(_box.values.toList());
+  }
+
+  bool isBookInFavorites(int id) {
+    return _box.values.contains(id);
   }
 }

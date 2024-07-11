@@ -1,35 +1,12 @@
-import 'package:alexandria/favorites/cubit/favorites_state.dart';
+import 'package:alexandria/favorites/favorites_cubit/favorites_state.dart';
 import 'package:alexandria/favorites/repository/favorites_repository.dart';
 import 'package:alexandria/repository/models/book.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// TODO rethink entire concept and refactor this Cubit
 class FavoritesCubit extends Cubit<FavoritesState> {
   final FavoritesRepository _favoritesRepository;
 
   FavoritesCubit(this._favoritesRepository) : super(const FavoritesState());
-
-  Future<bool> flipFavoriteStatus(int id) async {
-    try {
-      if (isBookInFavorites(id)) {
-        await _favoritesRepository.removeIdFromFavorites(id);
-      } else {
-        await _favoritesRepository.addIdToFavorites(id);
-      }
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  bool isBookInFavorites(int id) {
-    try {
-      List<int> favoritesIds = _favoritesRepository.getFavoritesIds();
-      return favoritesIds.contains(id);
-    } catch (e) {
-      rethrow;
-    }
-  }
 
   void getFavoritesFrom(List<Book> allBooks) {
     emit(state.copyWith(status: FavoritesStatus.loading));
@@ -41,8 +18,20 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
       emit(state.copyWith(
           favorites: favorites, status: FavoritesStatus.success));
+    } on HiveNotInitializedException catch (_) {
+      emit(
+        state.copyWith(
+          status: FavoritesStatus.failure,
+          errorMessage: 'This should NOT happen',
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(status: FavoritesStatus.failure));
+      emit(
+        state.copyWith(
+          status: FavoritesStatus.failure,
+          errorMessage: 'Unknown error.',
+        ),
+      );
     }
   }
 }

@@ -14,20 +14,24 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       SearchQueryChanged event, Emitter<SearchState> emit) {
     emit(state.copyWith(status: SearchStatus.searching));
 
-    String query = event.query;
+    String lowerCaseQuery = event.query.toLowerCase();
 
-    if (query.isEmpty) {
-      emit(state.copyWith(results: [], status: SearchStatus.success));
+    if (lowerCaseQuery.isEmpty) {
+      emit(state.copyWith(results: [], status: SearchStatus.noResults));
       return;
     }
 
     List<Book> results = books
         .where((e) =>
-            e.title.contains(query) ||
-            e.author.contains(query) ||
-            e.description.contains(query))
+            e.title.toLowerCase().contains(lowerCaseQuery) ||
+            e.author.toLowerCase().contains(lowerCaseQuery) ||
+            e.description.toLowerCase().contains(lowerCaseQuery))
         .toList();
 
-    emit(state.copyWith(results: results, status: SearchStatus.success));
+    if (results.isEmpty) {
+      emit(state.copyWith(results: [], status: SearchStatus.noResults));
+    } else {
+      emit(state.copyWith(results: results, status: SearchStatus.success));
+    }
   }
 }

@@ -44,9 +44,8 @@ class AllBooksPage extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (state.status.isFailure) {
-              // TODO error handling
-              return const Center(
-                child: Text('failed'),
+              return Center(
+                child: Text(state.errorMessage ?? 'Unknown error'),
               );
             }
             return Container();

@@ -13,21 +13,29 @@ final class AllBooksState extends Equatable {
   const AllBooksState({
     this.status = AllBooksStatus.initial,
     this.allBooks = const [],
+    this.errorMessage,
   });
 
   final AllBooksStatus status;
   final List<Book> allBooks;
+  final String? errorMessage;
 
   AllBooksState copyWith({
     AllBooksStatus? status,
     List<Book>? allBooks,
+    String? errorMessage,
   }) {
     return AllBooksState(
       status: status ?? this.status,
       allBooks: allBooks ?? this.allBooks,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
   @override
-  List<Object?> get props => [status, allBooks];
+  List<Object?> get props => [
+        status,
+        allBooks,
+        errorMessage,
+      ];
 }

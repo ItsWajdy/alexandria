@@ -1,7 +1,7 @@
 import 'package:alexandria/add_edit_book/bloc/abstract_event.dart';
 import 'package:alexandria/add_edit_book/bloc/abstract_state.dart';
 import 'package:alexandria/all_books/all_books.dart';
-import 'package:alexandria/books_repository.dart';
+import 'package:alexandria/repository/books_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';

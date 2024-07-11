@@ -19,10 +19,10 @@ class SearchPage extends StatelessWidget {
             create: (context) => SearchBloc(state.allBooks),
             child: const SearchView(),
           );
-        } else {
-          // TODO error handling
-          return Center(child: Text('error'));
+        } else if (state.status.isFailure) {
+          return Center(child: Text(state.errorMessage ?? 'Unknown error'));
         }
+        return const Center(child: Text('Fatal error'));
       },
     );
   }
@@ -63,8 +63,7 @@ class _SearchViewState extends State<SearchView> {
               builder: (context) {
                 if (state.status.isSearching) {
                   return const Center(child: CircularProgressIndicator());
-                }
-                if (state.status.isSuccess) {
+                } else if (state.status.isSuccess) {
                   return GridView.builder(
                     shrinkWrap: true,
                     primary: false,
@@ -78,6 +77,8 @@ class _SearchViewState extends State<SearchView> {
                       );
                     },
                   );
+                } else if (state.status.isNoResults) {
+                  return const Center(child: Text('No Results'));
                 }
                 return const SizedBox();
               },

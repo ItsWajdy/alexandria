@@ -1,8 +1,7 @@
 import 'package:alexandria/add_edit_book/view/view.dart';
 import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/book_details/book_details.dart';
-import 'package:alexandria/books_repository.dart';
-import 'package:alexandria/favorites/cubit/favorites_cubit.dart';
+import 'package:alexandria/repository/books_repository.dart';
 import 'package:alexandria/favorites/repository/favorites_repository.dart';
 import 'package:alexandria/home/view/view.dart';
 import 'package:alexandria/repository/models/book.dart';
@@ -51,16 +50,8 @@ class AlexandriaApp extends StatelessWidget {
         RepositoryProvider.value(value: _booksRepository),
         RepositoryProvider.value(value: _favoritesRepository),
       ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) =>
-                AllBooksCubit(_booksRepository)..fetchAllBooks(),
-          ),
-          BlocProvider(
-            create: (context) => FavoritesCubit(_favoritesRepository),
-          ),
-        ],
+      child: BlocProvider(
+        create: (context) => AllBooksCubit(_booksRepository)..fetchAllBooks(),
         child: const AlexandriaAppView(),
       ),
     );

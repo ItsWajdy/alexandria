@@ -1,29 +1,35 @@
 import 'package:alexandria/all_books/cubit/all_books_cubit.dart';
-import 'package:alexandria/books_repository.dart';
+import 'package:alexandria/repository/books_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'delete_book_state.dart';
 
 class DeleteBookCubit extends Cubit<DeleteBookState> {
-  final AllBooksCubit _allBooksCubit;
-
   DeleteBookCubit(this._allBooksCubit, this._booksRepository, this.bookId)
-      : super(DeleteBookState(bookId: bookId));
+      : super(const DeleteBookState());
 
+  final AllBooksCubit _allBooksCubit;
   final BooksRepository _booksRepository;
   final int bookId;
 
   Future<void> deleteBook() async {
     emit(state.copyWith(status: DeleteBookStatus.deleting));
     try {
-      await _booksRepository.deleteBook(id: state.bookId);
+      await _booksRepository.deleteBook(id: bookId);
       emit(state.copyWith(status: DeleteBookStatus.success));
+    } on ApiServiceException catch (e) {
+      emit(
+        state.copyWith(
+          status: DeleteBookStatus.failure,
+          errorMessage: e.message,
+        ),
+      );
     } catch (e) {
       emit(
         state.copyWith(
           status: DeleteBookStatus.failure,
-          errorMessage: 'Error Occurred',
+          errorMessage: 'Unknown error.',
         ),
       );
     }

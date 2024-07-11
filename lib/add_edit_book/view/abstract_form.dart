@@ -54,9 +54,7 @@ class _AbstractFormState extends State<AbstractForm> {
           }
           if (state.status.isFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.errorMessage ?? 'Unknown'),
-              ),
+              SnackBar(content: Text(state.errorMessage ?? 'Unknown error.')),
             );
           }
         },

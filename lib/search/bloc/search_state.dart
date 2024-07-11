@@ -1,12 +1,13 @@
 import 'package:alexandria/repository/models/book.dart';
 import 'package:equatable/equatable.dart';
 
-enum SearchStatus { initial, searching, success }
+enum SearchStatus { initial, searching, success, noResults }
 
 extension SearchStatusX on SearchStatus {
   bool get isInitial => this == SearchStatus.initial;
   bool get isSearching => this == SearchStatus.searching;
   bool get isSuccess => this == SearchStatus.success;
+  bool get isNoResults => this == SearchStatus.noResults;
 }
 
 final class SearchState extends Equatable {
