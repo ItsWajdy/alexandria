@@ -1,15 +1,19 @@
 import 'package:alexandria/add_edit_book/bloc/abstract_event.dart';
 import 'package:alexandria/add_edit_book/bloc/abstract_state.dart';
+import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/books_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 
 abstract class AbstractBloc extends Bloc<AbstractEvent, AbstractState> {
-  final BooksRepository booksRepository;
-  final AbstractState initialState;
+  final AllBooksCubit _allBooksCubit;
 
-  AbstractBloc(this.booksRepository, this.initialState) : super(initialState) {
+  final BooksRepository booksRepository;
+  final AbstractState _initialState;
+
+  AbstractBloc(this._allBooksCubit, this.booksRepository, this._initialState)
+      : super(_initialState) {
     on<TitleChanged>(_onTitleChanged);
     on<AuthorChanged>(_onAuthorChanged);
     on<DescriptionChanged>(_onDescriptionChanged);
@@ -99,25 +103,14 @@ abstract class AbstractBloc extends Bloc<AbstractEvent, AbstractState> {
 
   Future<void> onFormSubmitted(
       FormSubmitted event, Emitter<AbstractState> emit);
-  // if (!state.isValid || state.publicationDate == null) return;
-  // emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
-  // try {
-  //   await _booksRepository.editBook(
-  //     id: state.bookId,
-  //     title: state.title.value,
-  //     author: state.author.value,
-  //     description: state.description.value,
-  //     image: state.image.value,
-  //     publicationDate: state.publicationDate!.toIso8601String(),
-  //   );
-  //
-  //   emit(state.copyWith(status: FormzSubmissionStatus.success));
-  // } catch (e) {
-  //   emit(
-  //     state.copyWith(
-  //       status: FormzSubmissionStatus.failure,
-  //       errorMessage: 'Error Occurred',
-  //     ),
-  //   );
-  // }
+
+  @override
+  void onChange(Change<AbstractState> change) {
+    super.onChange(change);
+
+    if (change.nextState.status.isSuccess) {
+      // TODO maybe there is a better way of notify AllBooksCubit of data change
+      _allBooksCubit.fetchAllBooks();
+    }
+  }
 }

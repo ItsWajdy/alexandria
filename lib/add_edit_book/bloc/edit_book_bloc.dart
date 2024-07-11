@@ -1,6 +1,7 @@
 import 'package:alexandria/add_edit_book/bloc/abstract_bloc.dart';
 import 'package:alexandria/add_edit_book/bloc/abstract_event.dart';
 import 'package:alexandria/add_edit_book/bloc/abstract_state.dart';
+import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/books_repository.dart';
 import 'package:alexandria/repository/models/book.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,8 +11,10 @@ import 'package:formz/formz.dart';
 class EditBookBloc extends AbstractBloc {
   final Book book;
 
-  EditBookBloc(BooksRepository booksRepository, this.book)
+  EditBookBloc(
+      AllBooksCubit allBooksCubit, BooksRepository booksRepository, this.book)
       : super(
+            allBooksCubit,
             booksRepository,
             AbstractState(
               bookId: book.id,

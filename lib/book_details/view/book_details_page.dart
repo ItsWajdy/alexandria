@@ -1,3 +1,4 @@
+import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/book_details/cubit/delete_book_cubit.dart';
 import 'package:alexandria/book_details/widgets/book_preview.dart';
 import 'package:alexandria/book_details/widgets/floating_card.dart';
@@ -17,8 +18,8 @@ class BookDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-          DeleteBookCubit(context.read<BooksRepository>(), book.id),
+      create: (context) => DeleteBookCubit(context.read<AllBooksCubit>(),
+          context.read<BooksRepository>(), book.id),
       child: BookDetailsView(
         book: book,
       ),
