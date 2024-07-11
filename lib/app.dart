@@ -3,6 +3,7 @@ import 'package:alexandria/book_details/book_details.dart';
 import 'package:alexandria/books_repository.dart';
 import 'package:alexandria/home/view/view.dart';
 import 'package:alexandria/repository/models/book.dart';
+import 'package:alexandria/search/view/search_page.dart';
 import 'package:alexandria/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,10 @@ final _router = GoRouter(
     GoRoute(
       path: '/edit',
       builder: (context, state) => EditBookPage(book: state.extra as Book),
+    ),
+    GoRoute(
+      path: '/search',
+      builder: (context, state) => SearchPage(books: state.extra as List<Book>),
     ),
   ],
 );

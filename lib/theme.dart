@@ -6,6 +6,30 @@ class AlexandriaTheme {
   static const Color _highlight = Color(0xFFB0902A);
   static const Color _lightGrey = Color(0xFFD6D6D6);
   static const Color _darkGrey = Color(0xFF616161);
+  static const Color _darkWhite = Color(0xFFEEEEEE);
+
+  static final InputDecoration searchBoxDecoration = InputDecoration(
+    fillColor: _darkWhite,
+    filled: true,
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: _lightGrey,
+      ),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: _lightGrey,
+      ),
+      borderRadius: BorderRadius.circular(30),
+    ),
+    border: OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: _lightGrey,
+      ),
+      borderRadius: BorderRadius.circular(30),
+    ),
+  );
 
   static final _theme = ThemeData(
     textTheme: GoogleFonts.robotoTextTheme(),

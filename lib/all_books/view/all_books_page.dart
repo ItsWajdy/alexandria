@@ -3,6 +3,7 @@ import 'package:alexandria/all_books/widgets/widgets.dart';
 import 'package:alexandria/books_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class AllBooksPage extends StatelessWidget {
   const AllBooksPage({super.key});
@@ -38,6 +39,22 @@ class _AllBooksViewState extends State<AllBooksView> {
               .titleLarge!
               .copyWith(fontWeight: FontWeight.bold, fontSize: 25),
         ),
+        actions: [
+          BlocBuilder<AllBooksCubit, AllBooksState>(
+            builder: (context, state) {
+              if (state.status.isSuccess) {
+                return IconButton(
+                  onPressed: () {
+                    context.go('/search', extra: state.allBooks);
+                  },
+                  icon: const Icon(Icons.search),
+                );
+              } else {
+                return const SizedBox();
+              }
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
