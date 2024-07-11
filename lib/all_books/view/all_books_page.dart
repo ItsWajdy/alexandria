@@ -1,31 +1,11 @@
 import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/all_books/widgets/widgets.dart';
-import 'package:alexandria/books_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class AllBooksPage extends StatelessWidget {
   const AllBooksPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          AllBooksCubit(context.read<BooksRepository>())..fetchAllBooks(),
-      child: const AllBooksView(),
-    );
-  }
-}
-
-class AllBooksView extends StatefulWidget {
-  const AllBooksView({super.key});
-
-  @override
-  State<AllBooksView> createState() => _AllBooksViewState();
-}
-
-class _AllBooksViewState extends State<AllBooksView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,22 +19,6 @@ class _AllBooksViewState extends State<AllBooksView> {
               .titleLarge!
               .copyWith(fontWeight: FontWeight.bold, fontSize: 25),
         ),
-        actions: [
-          BlocBuilder<AllBooksCubit, AllBooksState>(
-            builder: (context, state) {
-              if (state.status.isSuccess) {
-                return IconButton(
-                  onPressed: () {
-                    context.go('/search', extra: state.allBooks);
-                  },
-                  icon: const Icon(Icons.search),
-                );
-              } else {
-                return const SizedBox();
-              }
-            },
-          )
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),

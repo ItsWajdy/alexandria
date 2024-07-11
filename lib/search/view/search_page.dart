@@ -1,5 +1,5 @@
+import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/all_books/widgets/book_preview.dart';
-import 'package:alexandria/repository/models/book.dart';
 import 'package:alexandria/search/cubit/search_bloc.dart';
 import 'package:alexandria/search/cubit/search_event.dart';
 import 'package:alexandria/search/cubit/search_state.dart';
@@ -8,15 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchPage extends StatelessWidget {
-  final List<Book> books;
-
-  const SearchPage({super.key, required this.books});
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SearchBloc>(
-      create: (context) => SearchBloc(books),
-      child: const SearchView(),
+    return BlocBuilder<AllBooksCubit, AllBooksState>(
+      builder: (context, state) {
+        if (state.status.isSuccess) {
+          return BlocProvider<SearchBloc>(
+            create: (context) => SearchBloc(state.allBooks),
+            child: const SearchView(),
+          );
+        } else {
+          // TODO error handling
+          return Center(child: Text('error'));
+        }
+      },
     );
   }
 }
