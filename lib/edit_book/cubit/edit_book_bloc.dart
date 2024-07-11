@@ -1,30 +1,34 @@
 import 'package:alexandria/books_repository.dart';
+import 'package:alexandria/edit_book/cubit/edit_book_event.dart';
+import 'package:alexandria/edit_book/cubit/edit_book_state.dart';
 import 'package:alexandria/repository/models/book.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
 
-part 'edit_book_state.dart';
-
-class EditBookCubit extends Cubit<EditBookState> {
+class EditBookBloc extends Bloc<EditBookEvent, EditBookState> {
   final BooksRepository _booksRepository;
   final Book book;
 
-  EditBookCubit(this._booksRepository, this.book)
-      : super(
-          EditBookState(
-            bookId: book.id,
-            title: Text.dirty(book.title),
-            author: Text.dirty(book.author),
-            description: Text.dirty(book.description),
-            image: Url.dirty(book.image),
-            publicationDate: book.publicationDate,
-          ),
-        );
+  EditBookBloc(this._booksRepository, this.book)
+      : super(EditBookState(
+          bookId: book.id,
+          title: Text.dirty(book.title),
+          author: Text.dirty(book.author),
+          description: Text.dirty(book.description),
+          image: Url.dirty(book.image),
+          publicationDate: book.publicationDate,
+        )) {
+    on<TitleChanged>(_onTitleChanged);
+    on<AuthorChanged>(_onAuthorChanged);
+    on<DescriptionChanged>(_onDescriptionChanged);
+    on<ImageChanged>(_onImageChanged);
+    on<PublicationDateChanged>(_onPublicationDateChanged);
+    on<FormSubmitted>(_onFormSubmitted);
+  }
 
-  void titleChanged(String value) {
-    final Text title = Text.dirty(value);
+  void _onTitleChanged(TitleChanged event, Emitter<EditBookState> emit) {
+    final Text title = Text.dirty(event.text);
     emit(
       state.copyWith(
         title: title,
@@ -39,8 +43,8 @@ class EditBookCubit extends Cubit<EditBookState> {
     );
   }
 
-  void authorChanged(String value) {
-    final Text author = Text.dirty(value);
+  void _onAuthorChanged(AuthorChanged event, Emitter<EditBookState> emit) {
+    final Text author = Text.dirty(event.text);
     emit(
       state.copyWith(
         author: author,
@@ -55,8 +59,9 @@ class EditBookCubit extends Cubit<EditBookState> {
     );
   }
 
-  void descriptionChanged(String value) {
-    final Text description = Text.dirty(value);
+  void _onDescriptionChanged(
+      DescriptionChanged event, Emitter<EditBookState> emit) {
+    final Text description = Text.dirty(event.text);
     emit(
       state.copyWith(
         description: description,
@@ -71,8 +76,8 @@ class EditBookCubit extends Cubit<EditBookState> {
     );
   }
 
-  void imageChanged(String value) {
-    final Url image = Url.dirty(value);
+  void _onImageChanged(ImageChanged event, Emitter<EditBookState> emit) {
+    final Url image = Url.dirty(event.text);
     emit(
       state.copyWith(
         image: image,
@@ -87,10 +92,11 @@ class EditBookCubit extends Cubit<EditBookState> {
     );
   }
 
-  void publicationDateChanged(DateTime value) {
+  void _onPublicationDateChanged(
+      PublicationDateChanged event, Emitter<EditBookState> emit) {
     emit(
       state.copyWith(
-          publicationDate: value,
+          publicationDate: event.date,
           isValid: Formz.validate([
             state.title,
             state.author,
@@ -100,7 +106,8 @@ class EditBookCubit extends Cubit<EditBookState> {
     );
   }
 
-  Future<void> editBook() async {
+  Future<void> _onFormSubmitted(
+      FormSubmitted event, Emitter<EditBookState> emit) async {
     if (!state.isValid || state.publicationDate == null) return;
     emit(state.copyWith(status: FormzSubmissionStatus.inProgress));
     try {

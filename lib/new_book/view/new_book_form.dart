@@ -76,21 +76,21 @@ class _NewBookFormState extends State<NewBookForm> {
                     const SizedBox(
                       height: 20,
                     ),
-                    _TitleInput(),
-                    const SizedBox(
-                      height: 5,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25.0),
+                      child: _TitleInput(),
                     ),
-                    _AuthorInput(),
-                    const SizedBox(
-                      height: 5,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25.0),
+                      child: _AuthorInput(),
                     ),
-                    _DescriptionInput(),
-                    const SizedBox(
-                      height: 5,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25.0),
+                      child: _DescriptionInput(),
                     ),
-                    _ImageInput(),
-                    const SizedBox(
-                      height: 5,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 25.0),
+                      child: _ImageInput(),
                     ),
                     _PublicationDateInput(),
                   ],
@@ -220,8 +220,7 @@ class _PublicationDateInputState extends State<_PublicationDateInput> {
             );
 
             if (pickedDate != null) {
-              String formattedDate =
-                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              String formattedDate = DateFormat.yMMMMd().format(pickedDate);
               setState(() {
                 dateInput.text = formattedDate;
               });

@@ -1,4 +1,6 @@
-part of 'edit_book_cubit.dart';
+import 'package:equatable/equatable.dart';
+import 'package:form_inputs/form_inputs.dart';
+import 'package:formz/formz.dart';
 
 final class EditBookState extends Equatable {
   const EditBookState({

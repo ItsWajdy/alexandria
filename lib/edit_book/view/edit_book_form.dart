@@ -1,3 +1,5 @@
+import 'package:alexandria/edit_book/cubit/edit_book_event.dart';
+import 'package:alexandria/edit_book/cubit/edit_book_state.dart';
 import 'package:alexandria/edit_book/edit_book.dart';
 import 'package:alexandria/edit_book/widgets/floating_circular_button.dart';
 import 'package:alexandria/theme.dart';
@@ -40,7 +42,7 @@ class _EditBookFormState extends State<EditBookForm> {
         ),
       ),
       floatingActionButton: _SubmitButton(),
-      body: BlocConsumer<EditBookCubit, EditBookState>(
+      body: BlocConsumer<EditBookBloc, EditBookState>(
         listener: (context, state) {
           if (state.status.isSuccess) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -107,14 +109,14 @@ class _EditBookFormState extends State<EditBookForm> {
 class _TitleInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditBookCubit, EditBookState>(
+    return BlocBuilder<EditBookBloc, EditBookState>(
       buildWhen: (previous, current) => previous.title != current.title,
       builder: (context, state) {
         return TextFormField(
           key: const Key('newBookForm_titleInput_textField'),
           initialValue: state.title.value,
-          onChanged: (email) =>
-              context.read<EditBookCubit>().titleChanged(email),
+          onChanged: (value) =>
+              context.read<EditBookBloc>().add(TitleChanged(text: value)),
           decoration: InputDecoration(
             labelText: 'Title',
             hintText: state.title.value,
@@ -130,14 +132,14 @@ class _TitleInput extends StatelessWidget {
 class _AuthorInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditBookCubit, EditBookState>(
+    return BlocBuilder<EditBookBloc, EditBookState>(
       buildWhen: (previous, current) => previous.author != current.author,
       builder: (context, state) {
         return TextFormField(
           key: const Key('newBookForm_authorInput_textField'),
           initialValue: state.author.value,
-          onChanged: (email) =>
-              context.read<EditBookCubit>().authorChanged(email),
+          onChanged: (value) =>
+              context.read<EditBookBloc>().add(AuthorChanged(text: value)),
           decoration: InputDecoration(
             labelText: 'Author',
             errorText:
@@ -152,15 +154,15 @@ class _AuthorInput extends StatelessWidget {
 class _DescriptionInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditBookCubit, EditBookState>(
+    return BlocBuilder<EditBookBloc, EditBookState>(
       buildWhen: (previous, current) =>
           previous.description != current.description,
       builder: (context, state) {
         return TextFormField(
           key: const Key('newBookForm_descriptionInput_textField'),
           initialValue: state.description.value,
-          onChanged: (email) =>
-              context.read<EditBookCubit>().descriptionChanged(email),
+          onChanged: (value) =>
+              context.read<EditBookBloc>().add(DescriptionChanged(text: value)),
           maxLines: 3,
           decoration: InputDecoration(
             labelText: 'Description',
@@ -177,14 +179,14 @@ class _DescriptionInput extends StatelessWidget {
 class _ImageInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditBookCubit, EditBookState>(
+    return BlocBuilder<EditBookBloc, EditBookState>(
       buildWhen: (previous, current) => previous.image != current.image,
       builder: (context, state) {
         return TextFormField(
           key: const Key('newBookForm_imageInput_textField'),
           initialValue: state.image.value,
-          onChanged: (email) =>
-              context.read<EditBookCubit>().imageChanged(email),
+          onChanged: (value) =>
+              context.read<EditBookBloc>().add(ImageChanged(text: value)),
           decoration: InputDecoration(
             labelText: 'Image',
             errorText: state.image.displayError != null ? 'Invalid Path' : null,
@@ -206,13 +208,12 @@ class _PublicationDateInputState extends State<_PublicationDateInput> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EditBookCubit, EditBookState>(
+    return BlocBuilder<EditBookBloc, EditBookState>(
       buildWhen: (previous, current) =>
           previous.publicationDate != current.publicationDate,
       builder: (context, state) {
         if (initialBuild && state.publicationDate != null) {
-          dateInput.text =
-              DateFormat('yyyy-MM-dd').format(state.publicationDate!);
+          dateInput.text = DateFormat.yMMMMd().format(state.publicationDate!);
           initialBuild = false;
         }
         return TextFormField(
@@ -231,13 +232,14 @@ class _PublicationDateInputState extends State<_PublicationDateInput> {
             );
 
             if (pickedDate != null) {
-              String formattedDate =
-                  DateFormat('yyyy-MM-dd').format(pickedDate);
+              String formattedDate = DateFormat.yMMMMd().format(pickedDate);
               setState(() {
                 dateInput.text = formattedDate;
               });
 
-              context.read<EditBookCubit>().publicationDateChanged(pickedDate);
+              context
+                  .read<EditBookBloc>()
+                  .add(PublicationDateChanged(date: pickedDate));
             }
           },
         );
@@ -252,7 +254,7 @@ class _SubmitButton extends StatelessWidget {
     return FloatingCircularButton(
       key: const Key('newBookForm_submitButton'),
       size: 54,
-      onClicked: () => context.read<EditBookCubit>().editBook(),
+      onClicked: () => context.read<EditBookBloc>().add(FormSubmitted()),
       child: Icon(
         Icons.save,
         color: AlexandriaTheme.highlightColor,
