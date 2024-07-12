@@ -1,5 +1,6 @@
 import 'package:alexandria/all_books/all_books.dart';
-import 'package:alexandria/all_books/widgets/book_preview.dart';
+import 'package:alexandria/theme.dart';
+import 'package:alexandria/ui/widgets/book_preview.dart';
 import 'package:alexandria/favorites/favorites.dart';
 import 'package:alexandria/favorites/favorites_cubit/favorites_state.dart';
 import 'package:alexandria/favorites/repository/favorites_repository.dart';
@@ -34,7 +35,7 @@ class FavoritesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
+      backgroundColor: AlexandriaTheme.backgroundColor,
       appBar: AppBar(),
       body: BlocBuilder<FavoritesCubit, FavoritesState>(
         builder: (context, state) {

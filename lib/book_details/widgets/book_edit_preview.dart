@@ -1,10 +1,10 @@
 import 'package:alexandria/repository/models/models.dart';
 import 'package:flutter/material.dart';
 
-class BookPreview extends StatelessWidget {
+class BookEditPreview extends StatelessWidget {
   final Book book;
 
-  const BookPreview({
+  const BookEditPreview({
     super.key,
     required this.book,
   });

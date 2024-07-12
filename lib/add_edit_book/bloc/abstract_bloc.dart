@@ -10,10 +10,10 @@ abstract class AbstractBloc extends Bloc<AbstractEvent, AbstractState> {
   final AllBooksCubit _allBooksCubit;
 
   final BooksRepository booksRepository;
-  final AbstractState _initialState;
 
-  AbstractBloc(this._allBooksCubit, this.booksRepository, this._initialState)
-      : super(_initialState) {
+  AbstractBloc(
+      this._allBooksCubit, this.booksRepository, AbstractState abstractState)
+      : super(abstractState) {
     on<TitleChanged>(_onTitleChanged);
     on<AuthorChanged>(_onAuthorChanged);
     on<DescriptionChanged>(_onDescriptionChanged);

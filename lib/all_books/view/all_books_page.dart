@@ -1,5 +1,7 @@
 import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/all_books/widgets/widgets.dart';
+import 'package:alexandria/theme.dart';
+import 'package:alexandria/ui/widgets/book_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +11,7 @@ class AllBooksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
+      backgroundColor: AlexandriaTheme.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
         title: Text(

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:alexandria/all_books/widgets/book_preview.dart';
+import 'package:alexandria/ui/widgets/book_preview.dart';
 import 'package:alexandria/repository/books_repository.dart';
 import 'package:alexandria/repository/models/book.dart';
 import 'package:alexandria/search/bloc/search_event.dart';

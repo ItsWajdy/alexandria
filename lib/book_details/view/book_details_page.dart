@@ -1,11 +1,12 @@
 import 'package:alexandria/all_books/all_books.dart';
 import 'package:alexandria/book_details/cubit/delete_book_cubit.dart';
-import 'package:alexandria/book_details/widgets/book_preview.dart';
+import 'package:alexandria/book_details/widgets/book_edit_preview.dart';
 import 'package:alexandria/book_details/widgets/floating_card.dart';
 import 'package:alexandria/favorites/edit_favorites_cubit/edit_favorites_cubit.dart';
 import 'package:alexandria/favorites/repository/favorites_repository.dart';
 import 'package:alexandria/repository/books_repository.dart';
 import 'package:alexandria/repository/models/book.dart';
+import 'package:alexandria/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -86,11 +87,10 @@ class BookDetailsView extends StatelessWidget {
               Expanded(
                 flex: 5,
                 child: Container(
-                  // TODO extract all colors into theme
-                  color: const Color(0xFFF2EFE5),
+                  color: AlexandriaTheme.darkBackgroundColor,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 50.0),
-                    child: BookPreview(
+                    child: BookEditPreview(
                       book: book,
                     ),
                   ),
@@ -105,7 +105,7 @@ class BookDetailsView extends StatelessWidget {
                 flex: 6,
                 child: Container(
                   width: double.infinity,
-                  color: const Color(0xFFF4F4F4),
+                  color: AlexandriaTheme.backgroundColor,
                   child: Padding(
                     padding:
                         const EdgeInsets.only(top: 73.0, left: 15, right: 15),
@@ -133,7 +133,6 @@ class BookDetailsView extends StatelessWidget {
               ),
             ],
           ),
-          // TODO extract this card into separate widget
           FloatingCard(
             height: 74,
             width: 250,
@@ -147,7 +146,7 @@ class BookDetailsView extends StatelessWidget {
                     Text(
                       DateFormat.yMMMMd().format(book.publicationDate!),
                       style: theme.textTheme.bodyMedium!.copyWith(
-                          color: const Color(0xFFC5AB63),
+                          color: AlexandriaTheme.highlightColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                     ),
@@ -169,7 +168,7 @@ class BookDetailsView extends StatelessWidget {
                     Text(
                       'English',
                       style: theme.textTheme.bodyMedium!.copyWith(
-                          color: const Color(0xFFC5AB63),
+                          color: AlexandriaTheme.highlightColor,
                           fontWeight: FontWeight.bold,
                           fontSize: 14),
                     ),
@@ -192,7 +191,6 @@ class BookDetailsView extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                // TODO change all GestureDetectors to InkWell
                 child: InkWell(
                   onTap: () {
                     context.go('/edit', extra: book);
@@ -200,9 +198,9 @@ class BookDetailsView extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      const Icon(
+                      Icon(
                         Icons.edit,
-                        color: Color(0xFFC5AB63),
+                        color: AlexandriaTheme.highlightColor,
                       ),
                       Text(
                         'EDIT',
@@ -266,9 +264,9 @@ class BookDetailsView extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Icon(
+                        Icon(
                           Icons.delete,
-                          color: Color(0xFFC5AB63),
+                          color: AlexandriaTheme.highlightColor,
                         ),
                         Text(
                           'DELETE',

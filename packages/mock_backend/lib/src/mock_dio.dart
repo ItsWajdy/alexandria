@@ -16,7 +16,9 @@ class BadRequestException implements Exception {
 
 /*
   Mock of Dio
-  TODO write documentation
+
+  Receives API requests like get, post, and delete and returns appropriate responses
+  Stores books data in a Database
 */
 class MockDio extends Mock implements Dio {
   static Future<void> init() async {

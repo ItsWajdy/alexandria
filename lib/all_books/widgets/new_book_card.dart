@@ -1,3 +1,4 @@
+import 'package:alexandria/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -6,7 +7,7 @@ class NewBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         context.go('/new');
       },
@@ -15,9 +16,8 @@ class NewBookCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              // TODO extract these values to theme
-              height: 260,
-              width: 172,
+              height: AlexandriaTheme.bookCardSize.height,
+              width: AlexandriaTheme.bookCardSize.width,
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.circular(11),

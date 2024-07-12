@@ -3,10 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 class AlexandriaTheme {
   static const Color _background = Color(0xFFF4F4F4);
-  static const Color _highlight = Color(0xFFB0902A);
+  static const Color _darkBackground = Color(0xFFF2EFE5);
+  static const Color _highlight = Color(0xFFC5AB63);
   static const Color _lightGrey = Color(0xFFD6D6D6);
   static const Color _darkGrey = Color(0xFF616161);
   static const Color _darkWhite = Color(0xFFEEEEEE);
+
+  static const Size _bookCardSize = Size(172, 260);
 
   static final InputDecoration searchBoxDecoration = InputDecoration(
     fillColor: _darkWhite,
@@ -73,7 +76,9 @@ class AlexandriaTheme {
   );
 
   static get backgroundColor => _background;
+  static get darkBackgroundColor => _darkBackground;
   static get highlightColor => _highlight;
   static get lightGrey => _lightGrey;
+  static get bookCardSize => _bookCardSize;
   static get data => _theme;
 }

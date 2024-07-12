@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 
 part 'database_book.g.dart';
 
-// TODO write documentation
+/// Model book class for database
 @HiveType(typeId: 0)
 class DatabaseBook extends HiveObject {
   @HiveField(0)

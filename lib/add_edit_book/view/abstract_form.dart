@@ -60,7 +60,7 @@ class _AbstractFormState extends State<AbstractForm> {
         },
         builder: (context, state) {
           return Container(
-            color: const Color(0xFFF4F4F4),
+            color: AlexandriaTheme.backgroundColor,
             child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
               child: SingleChildScrollView(

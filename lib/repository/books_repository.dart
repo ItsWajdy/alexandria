@@ -117,8 +117,7 @@ class BooksRepository {
     );
 
     if (response.status == ResponseStatus.error) {
-      // TODO create exception
-      throw Exception();
+      throw ApiServiceException.fromMessage(response.data['message']);
     }
   }
 

@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:alexandria/all_books/all_books.dart';
-import 'package:alexandria/all_books/widgets/book_preview.dart';
+import 'package:alexandria/ui/widgets/book_preview.dart';
 import 'package:alexandria/all_books/widgets/new_book_card.dart';
 import 'package:alexandria/repository/books_repository.dart';
 import 'package:alexandria/repository/models/book.dart';

@@ -1,5 +1,5 @@
 import 'package:alexandria/all_books/all_books.dart';
-import 'package:alexandria/all_books/widgets/book_preview.dart';
+import 'package:alexandria/ui/widgets/book_preview.dart';
 import 'package:alexandria/search/bloc/search_bloc.dart';
 import 'package:alexandria/search/bloc/search_event.dart';
 import 'package:alexandria/search/bloc/search_state.dart';
@@ -39,7 +39,7 @@ class _SearchViewState extends State<SearchView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF2F2F2),
+      backgroundColor: AlexandriaTheme.backgroundColor,
       appBar: AppBar(
         title: TextField(
           cursorColor: Colors.grey,
