@@ -18,7 +18,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
 
       emit(state.copyWith(
           favorites: favorites, status: FavoritesStatus.success));
-    } on HiveNotInitializedException catch (_) {
+    } on HiveNotInitializedException {
       emit(
         state.copyWith(
           status: FavoritesStatus.failure,
@@ -29,7 +29,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       emit(
         state.copyWith(
           status: FavoritesStatus.failure,
-          errorMessage: 'Unknown error.',
+          errorMessage: 'Unknown error',
         ),
       );
     }

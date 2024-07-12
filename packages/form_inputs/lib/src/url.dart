@@ -15,7 +15,7 @@ class Url extends FormzInput<String, UrlValidationError> {
   const Url.dirty([super.value = '']) : super.dirty();
 
   static final RegExp _urlRegExp = RegExp(
-    r'(http[s]?:\/\/)?([^\/\s]+\/)(.*)',
+    r'(http[s]?:\/\/)?([^\/\s]+\/)(.*)(.jpg)',
   );
 
   @override

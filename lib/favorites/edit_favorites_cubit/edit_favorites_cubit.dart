@@ -33,21 +33,21 @@ class EditFavoritesCubit extends Cubit<EditFavoritesState> {
       emit(
         state.copyWith(
           success: false,
-          errorMessage: 'This book is already in favorites.',
+          errorMessage: 'This book is already in favorites',
         ),
       );
     } on BookNotInFavorites {
       emit(
         state.copyWith(
           success: false,
-          errorMessage: 'This book does not exist in favorites.',
+          errorMessage: 'This book does not exist in favorites',
         ),
       );
     } catch (_) {
       emit(
         state.copyWith(
           success: false,
-          errorMessage: 'Unknown error.',
+          errorMessage: 'Unknown error',
         ),
       );
     }

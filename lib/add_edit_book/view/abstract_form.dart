@@ -111,13 +111,12 @@ class _TitleInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.title != current.title,
       builder: (context, state) {
         return TextFormField(
-          key: const Key('newBookForm_titleInput_textField'),
+          key: const Key('abstractForm_titleInput_textField'),
           initialValue: state.title.value,
           onChanged: (value) =>
               context.read<AbstractBloc>().add(TitleChanged(text: value)),
           decoration: InputDecoration(
             labelText: 'Title',
-            hintText: state.title.value,
             errorText:
                 state.title.displayError != null ? 'Invalid Title' : null,
           ),
@@ -134,7 +133,7 @@ class _AuthorInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.author != current.author,
       builder: (context, state) {
         return TextFormField(
-          key: const Key('newBookForm_authorInput_textField'),
+          key: const Key('abstractForm_authorInput_textField'),
           initialValue: state.author.value,
           onChanged: (value) =>
               context.read<AbstractBloc>().add(AuthorChanged(text: value)),
@@ -157,7 +156,7 @@ class _DescriptionInput extends StatelessWidget {
           previous.description != current.description,
       builder: (context, state) {
         return TextFormField(
-          key: const Key('newBookForm_descriptionInput_textField'),
+          key: const Key('abstractForm_descriptionInput_textField'),
           initialValue: state.description.value,
           onChanged: (value) =>
               context.read<AbstractBloc>().add(DescriptionChanged(text: value)),
@@ -181,7 +180,7 @@ class _ImageInput extends StatelessWidget {
       buildWhen: (previous, current) => previous.image != current.image,
       builder: (context, state) {
         return TextFormField(
-          key: const Key('newBookForm_imageInput_textField'),
+          key: const Key('abstractForm_imageInput_textField'),
           initialValue: state.image.value,
           onChanged: (value) =>
               context.read<AbstractBloc>().add(ImageChanged(text: value)),
@@ -215,7 +214,7 @@ class _PublicationDateInputState extends State<_PublicationDateInput> {
           initialBuild = false;
         }
         return TextFormField(
-          key: const Key('newBookForm_publicationDateInput_datePicker'),
+          key: const Key('abstractForm_publicationDateInput_datePicker'),
           controller: dateInput,
           decoration: const InputDecoration(
             labelText: 'Publication Date',
@@ -250,7 +249,7 @@ class _SubmitButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingCircularButton(
-      key: const Key('newBookForm_submitButton'),
+      key: const Key('abstractForm_submitButton'),
       size: 54,
       onClicked: () => context.read<AbstractBloc>().add(FormSubmitted()),
       child: Icon(

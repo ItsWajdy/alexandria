@@ -43,7 +43,7 @@ class BookDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.sizeOf(context).height;
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
@@ -137,7 +137,7 @@ class BookDetailsView extends StatelessWidget {
           FloatingCard(
             height: 74,
             width: 250,
-            topPosition: height * 5 / 11 - 37,
+            topPosition: screenHeight * 5 / 11 - 37,
             children: [
               Expanded(
                 flex: 1,
@@ -188,7 +188,7 @@ class BookDetailsView extends StatelessWidget {
           FloatingCard(
             height: 65,
             width: 150,
-            topPosition: height * 9 / 11,
+            topPosition: screenHeight * 9 / 11,
             children: [
               Expanded(
                 flex: 1,

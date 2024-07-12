@@ -28,9 +28,6 @@ class BookNotInDatabaseException extends DatabaseException {
 }
 
 class Database {
-  static final Database instance = Database._internal();
-  Database._internal();
-
   static bool _hiveInitialized = false;
 
   static const String _booksBoxName = 'books_database';
