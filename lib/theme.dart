@@ -75,10 +75,10 @@ class AlexandriaTheme {
     canvasColor: _background,
   );
 
-  static get backgroundColor => _background;
-  static get darkBackgroundColor => _darkBackground;
-  static get highlightColor => _highlight;
-  static get lightGrey => _lightGrey;
-  static get bookCardSize => _bookCardSize;
-  static get data => _theme;
+  static Color get backgroundColor => _background;
+  static Color get darkBackgroundColor => _darkBackground;
+  static Color get highlightColor => _highlight;
+  static Color get lightGrey => _lightGrey;
+  static Size get bookCardSize => _bookCardSize;
+  static ThemeData get data => _theme;
 }

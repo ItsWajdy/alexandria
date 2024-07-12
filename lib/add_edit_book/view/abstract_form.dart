@@ -17,6 +17,8 @@ class AbstractForm extends StatefulWidget {
 }
 
 class _AbstractFormState extends State<AbstractForm> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -41,7 +43,7 @@ class _AbstractFormState extends State<AbstractForm> {
           },
         ),
       ),
-      floatingActionButton: _SubmitButton(),
+      floatingActionButton: _SubmitButton(formKey: _formKey),
       body: BlocConsumer<AbstractBloc, AbstractState>(
         listener: (context, state) {
           if (state.status.isSuccess) {
@@ -64,36 +66,39 @@ class _AbstractFormState extends State<AbstractForm> {
             child: Padding(
               padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
               child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Text(
-                      'Book Details',
-                      style: theme.textTheme.titleLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Book Details',
+                        style: theme.textTheme.titleLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 25.0),
-                      child: _TitleInput(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 25.0),
-                      child: _AuthorInput(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 25.0),
-                      child: _DescriptionInput(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 25.0),
-                      child: _ImageInput(),
-                    ),
-                    _PublicationDateInput(),
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 25.0),
+                        child: _TitleInput(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 25.0),
+                        child: _AuthorInput(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 25.0),
+                        child: _DescriptionInput(),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 25.0),
+                        child: _ImageInput(),
+                      ),
+                      _PublicationDateInput(),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -113,6 +118,11 @@ class _TitleInput extends StatelessWidget {
         return TextFormField(
           key: const Key('abstractForm_titleInput_textField'),
           initialValue: state.title.value,
+          validator: (value) {
+            return state.title.validator(value) == null
+                ? null
+                : 'Invalid Title';
+          },
           onChanged: (value) =>
               context.read<AbstractBloc>().add(TitleChanged(text: value)),
           decoration: InputDecoration(
@@ -135,6 +145,11 @@ class _AuthorInput extends StatelessWidget {
         return TextFormField(
           key: const Key('abstractForm_authorInput_textField'),
           initialValue: state.author.value,
+          validator: (value) {
+            return state.author.validator(value) == null
+                ? null
+                : 'Invalid Title';
+          },
           onChanged: (value) =>
               context.read<AbstractBloc>().add(AuthorChanged(text: value)),
           decoration: InputDecoration(
@@ -158,6 +173,11 @@ class _DescriptionInput extends StatelessWidget {
         return TextFormField(
           key: const Key('abstractForm_descriptionInput_textField'),
           initialValue: state.description.value,
+          validator: (value) {
+            return state.description.validator(value) == null
+                ? null
+                : 'Invalid Title';
+          },
           onChanged: (value) =>
               context.read<AbstractBloc>().add(DescriptionChanged(text: value)),
           maxLines: 3,
@@ -182,10 +202,16 @@ class _ImageInput extends StatelessWidget {
         return TextFormField(
           key: const Key('abstractForm_imageInput_textField'),
           initialValue: state.image.value,
+          validator: (value) {
+            return state.image.validator(value) == null
+                ? null
+                : 'Invalid Title';
+          },
           onChanged: (value) =>
               context.read<AbstractBloc>().add(ImageChanged(text: value)),
           decoration: InputDecoration(
             labelText: 'Image',
+            hintText: 'Provide a valid image URL',
             errorText: state.image.displayError != null ? 'Invalid Path' : null,
           ),
         );
@@ -220,6 +246,15 @@ class _PublicationDateInputState extends State<_PublicationDateInput> {
             labelText: 'Publication Date',
           ),
           readOnly: true,
+          validator: (value) {
+            if (value == null) {
+              return 'Invalid Date';
+            }
+            if (value.isEmpty) {
+              return 'Invalid Date';
+            }
+            return null;
+          },
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
               context: context,
@@ -246,16 +281,27 @@ class _PublicationDateInputState extends State<_PublicationDateInput> {
 }
 
 class _SubmitButton extends StatelessWidget {
+  final GlobalKey<FormState> formKey;
+
+  const _SubmitButton({super.key, required this.formKey});
+
   @override
   Widget build(BuildContext context) {
-    return FloatingCircularButton(
-      key: const Key('abstractForm_submitButton'),
-      size: 54,
-      onClicked: () => context.read<AbstractBloc>().add(FormSubmitted()),
-      child: Icon(
-        Icons.save,
-        color: AlexandriaTheme.highlightColor,
-      ),
+    return BlocBuilder<AbstractBloc, AbstractState>(
+      builder: (context, state) {
+        return FloatingCircularButton(
+          key: const Key('abstractForm_submitButton'),
+          size: 54,
+          onClicked: () {
+            formKey.currentState!.validate();
+            context.read<AbstractBloc>().add(FormSubmitted());
+          },
+          child: Icon(
+            Icons.save,
+            color: AlexandriaTheme.highlightColor,
+          ),
+        );
+      },
     );
   }
 }
