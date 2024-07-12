@@ -1,16 +1,51 @@
 # alexandria
 
-A Flutter app to manage books
+A simple Flutter app to manage a personal book library (hence the name).
 
-## Getting Started
+This app has basic CRUD, search, and favorites screens. It's configured with [BLoC](https://pub.dev/packages/bloc) for state management and [Dio](https://pub.dev/packages/dio) for HTTP networking.
 
-This project is a starting point for a Flutter application.
+<br />
+<div>
+  &emsp;&emsp;&emsp;
+  <img src="https://github.com/ItsWajdy/alexandria/blob/master/screenshots/all_books_page.png" alt="Home Page" width="330">
+  &emsp;&emsp;&emsp;&emsp;
+  <img src="https://github.com/ItsWajdy/alexandria/blob/master/screenshots/book_details_page.png" alt="Book Details" width="330">
+</div>
+<br />
 
-A few resources to get you started if this is your first Flutter project:
+More screenshots can be found in the [screenshots](https://github.com/ItsWajdy/alexandria/tree/master/screenshots) folder.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Run
+
+Install dependencies with 
+
+```
+flutter pub get
+```
+
+Run the app 
+
+```
+flutter run
+```
+
+
+## Under the Hood
+
+### Backend
+
+Although the app is built on the assumption that it will communicate with a server backend, it doesn't <i>technically</i> (in its current state) send or recieve data over the network. Rather, data is stored locally and is reached by mocking a Restful API.
+
+This is handled by the `mock_backend` package which simulates a backend and has mocks for all needed API requests that the app uses.
+
+The package is split into two main parts, one responsible for receiveing API requests and sending responses, and the other responsible for managing local data storage using [Hive](https://docs.hivedb.dev/#/).
+
+  
+## Tests
+
+The test folder contains unit and widget tests for all BLoCs, Cubits and screes.
+
+## Known Issues
+
+- `BookDetails` widget tests fail due to `Overflow` exceptions.
