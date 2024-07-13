@@ -63,12 +63,10 @@ void main() {
   });
 
   group('BookDetailsView', () {
-    late BooksRepository booksRepository;
     late DeleteBookCubit deleteBookCubit;
     late EditFavoritesCubit editFavoritesCubit;
 
     setUp(() {
-      booksRepository = MockBooksRepository();
       deleteBookCubit = MockDeleteBookCubit();
       editFavoritesCubit = MockEditFavoritesCubit();
 
@@ -94,16 +92,15 @@ void main() {
         whenListen<DeleteBookState>(
           deleteBookCubit,
           Stream.fromIterable([
-            const DeleteBookState(),
             const DeleteBookState(
               status: DeleteBookStatus.failure,
+              errorMessage: 'ERROR',
             ),
           ]),
         );
 
         await tester.pumpApp(
           buildSubject(),
-          booksRepository: booksRepository,
         );
         await tester.pumpAndSettle();
 
@@ -111,7 +108,7 @@ void main() {
         expect(
           find.descendant(
             of: find.byType(SnackBar),
-            matching: find.text('Unknown error.'),
+            matching: find.text('ERROR'),
           ),
           findsOneWidget,
         );

@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 
 class BookEditPreview extends StatelessWidget {
   final Book book;
+  final double? height;
 
   const BookEditPreview({
     super.key,
     required this.book,
+    this.height = 200,
   });
 
   @override
@@ -17,7 +19,7 @@ class BookEditPreview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            height: 200,
+            height: height,
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey),
               borderRadius: BorderRadius.circular(11),

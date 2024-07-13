@@ -45,6 +45,7 @@ class BookDetailsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
+    double screenWidth = MediaQuery.sizeOf(context).width;
     ThemeData theme = Theme.of(context);
 
     return Scaffold(
@@ -65,7 +66,7 @@ class BookDetailsView extends StatelessWidget {
               if (!state.success) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      content: Text(state.errorMessage ?? 'Unknown error.')),
+                      content: Text(state.errorMessage ?? 'Unknown error')),
                 );
               }
             },
@@ -91,6 +92,7 @@ class BookDetailsView extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 50.0),
                     child: BookEditPreview(
+                      height: screenHeight * 200 / 890 + 5,
                       book: book,
                     ),
                   ),
@@ -107,8 +109,8 @@ class BookDetailsView extends StatelessWidget {
                   width: double.infinity,
                   color: AlexandriaTheme.backgroundColor,
                   child: Padding(
-                    padding:
-                        const EdgeInsets.only(top: 73.0, left: 15, right: 15),
+                    padding: EdgeInsets.only(
+                        top: screenHeight * 73 / 890 + 5, left: 15, right: 15),
                     child: Column(
                       children: [
                         Text(
@@ -134,8 +136,8 @@ class BookDetailsView extends StatelessWidget {
             ],
           ),
           FloatingCard(
-            height: 74,
-            width: 250,
+            height: screenHeight * 74 / 890 + 5,
+            width: screenWidth * 250 / 411,
             topPosition: screenHeight * 5 / 11 - 37,
             children: [
               Expanded(
@@ -185,8 +187,8 @@ class BookDetailsView extends StatelessWidget {
             ],
           ),
           FloatingCard(
-            height: 65,
-            width: 150,
+            height: screenHeight * 65 / 890 + 5,
+            width: screenWidth * 150 / 411,
             topPosition: screenHeight * 9 / 11,
             children: [
               Expanded(
